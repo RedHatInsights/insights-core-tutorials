@@ -11,7 +11,8 @@ each of the components represented in the insights-examples directory.
 The process to create the files contained in the ``insights-core-tutorials/insights_examples`` directory are described
 in detail in the tutorials:
 
-* [Insights Core Tutortials](https://insights-core.readthedocs.io)
+  - `Insights Core Tutorials Read the Docs
+    <http://insights-core-tutorial.readthedocs.io/`_
 
 
 If you would like to just run the examples follow the ``Preparing Your Development Environment`` to create the 
