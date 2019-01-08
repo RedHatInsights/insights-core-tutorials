@@ -45,7 +45,7 @@ Combiners have a set of optional dependencies that are specified via the
 ``requires`` kwarg.
 
 ``make_response`` is a formatting function used to format
-the `return value of a rule </api.html#rule-output>`_ function.
+the `return value of a rule`_ function.
 
 .. code-block:: python
    :lineno-start: 6
@@ -100,3 +100,6 @@ Here we check to see if the value ``Fedora`` is in the "product" property of the
 is indeed running ``Fedora``, along with the product information returned by the
 parser. If false then the rule returns a response telling us that the host is
 not running ``Fedora``, along with the product information returned by the parser.
+
+.. _return value of a rule:  https://insights-core.readthedocs.io/en/latest/api.html#rule-output
+

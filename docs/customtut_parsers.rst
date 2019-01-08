@@ -350,11 +350,11 @@ Since the ``sshd_config`` spec requires root access to access the
         sshd_config = simple_file(conf_file)
 
 To get the ``ssh_config`` file needed for the local sshd_config spec you can
-copy it from ``/work/insights-core/docs/examples/parsers/sshd_config`` to the
-``~/work/mycomponents/parsers`` directory as shown below.
+copy it from ``~/github/insights-core-tutorials/insights_examples/parsers/sshd_config`` to the
+``~/githib/insights-core-tutorials/mycomponents/parsers`` directory as shown below.
 
 
-    (insights-core)[userone@hostone work]$ cp ./insights-core/docs/examples/parsers/sshd_config ./mycomponents/parsers/
+    (insights-core)[userone@hostone insights-core-tutorials]$ cp ./examples/parsers/sshd_config ./mycomponents/parsers/
 
 We can use ``namedtuples`` to help simplify access to the information we
 are storing in our parser by creating a namedtuple with the named attributes
