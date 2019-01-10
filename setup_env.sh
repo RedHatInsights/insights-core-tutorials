@@ -41,8 +41,7 @@ setup_environment(){
     echo ''
     echo '*** Setting up the development environment ***'
 
-    if ! command -v /bin/python3.6 &>/dev/null; then
-           cd ~/github/insights-core-tutorials
+    if ! command -v ./bin/python3.6 &>/dev/null; then
            virtualenv -p python3.6 .
     else
         echo virtualenv already set up.
@@ -86,7 +85,6 @@ run_pytest() {
     echo ''
     echo '*** Running pytest ***'
 
-    cd ~/github/insi
     pytest
 }
 
