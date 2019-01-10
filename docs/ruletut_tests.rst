@@ -5,7 +5,7 @@ Start out by creating a ``test_is_fedora.py`` module in a ``tests`` package.
 
 .. code-block:: shell
 
-    (env)[userone@hostone ~]$ cd ~/github/insights-core-tutorials/rules/tests
+    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials/rules/tests
     (env)[userone@hostone tests]$ touch __init__.py
     (env)[userone@hostone tests]$ touch test_is_fedora.py
 

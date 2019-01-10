@@ -53,10 +53,10 @@ Creating the Initial Parser Files
 First we need to create the parser file.  Parser files are implemented in modules.
 The module should be limited to one type of application.  In this case we are
 working with the ``ssh`` application so we will create an ``secure_shell`` module.
-Create the module file ``~/github/insights-core-tutorials/mycomponents/parsers/secure_shell.py`` in the parsers
+Create the module file ``~/work/insights-core-tutorials/mycomponents/parsers/secure_shell.py`` in the parsers
 directory::
 
-    (env)[userone@hostone ~]$ cd ~/github/insights-core-tutorials/mycomponents/parsers
+    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials/mycomponents/parsers
     (env)[userone@hostone parsers]$ touch secure_shell.py
 
 Now edit the file and create the parser skeleton:
@@ -82,7 +82,7 @@ and store the input data in our class.  The base class ``Parser`` implements a
 constructor that will invoke our ``parse_content`` method when the class
 is created.
 
-Next we'll create the parser test file ``~/github/insights-core-tutorials/mycomponents/parsers/tests/test_secure_shell.py``
+Next we'll create the parser test file ``~/work/insights-core-tutorials/mycomponents/parsers/tests/test_secure_shell.py``
 as a skeleton that will aid in the parser development process:
 
 .. code-block:: python
@@ -97,7 +97,7 @@ as a skeleton that will aid in the parser development process:
 Once you have created and saved both of these files and we'll run the test
 to make sure everything is setup correctly::
 
-    (env)[userone@hostone ~]$ cd ~/github/insights-core-tutorials
+    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
     (env)[userone@hostone insights-core-tutorials]$ pytest -k secure_shell
 
     ======================== test session starts =============================
@@ -350,7 +350,7 @@ Since the ``sshd_config`` spec requires root access to access the
         sshd_config = simple_file(conf_file)
 
 To get the ``ssh_config`` file needed for the local sshd_config spec you can
-copy it from ``~/github/insights-core-tutorials/insights_examples/parsers/sshd_config`` to the
+copy it from ``~/work/insights-core-tutorials/insights_examples/parsers/sshd_config`` to the
 ``~/githib/insights-core-tutorials/mycomponents/parsers`` directory as shown below.
 
 
@@ -701,7 +701,7 @@ The final version of our test now looks like this:
 To run ``pytest`` on just the completed ``secure_shell`` parser execute the following command::
 
 
-    (env)[userone@hostone ~]$ cd ~/github/insights-core-tutorials
+    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
     (insights-core)[userone@hostone insights-core-tutorials]$ pytest -k secure_shell
 
 Once your tests all run successfully your parser is complete.

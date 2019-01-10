@@ -38,7 +38,7 @@ Development which is described in :ref:`tutorial-development-environment`.
 Make sure
 you start with your virtual environment set to the insights-core-tutorials project::
 
-    [userone@hostone ~]$ cd ~/github/insights-core-tutorials
+    [userone@hostone ~]$ cd ~/work/insights-core-tutorials
     [userone@hostone insights-core-tutorials]$ source bin/activate
     (env)[userone@hostone insights-core-tutorials]$ cd mycomponents
     (env)[userone@hostone mycomponents]$ 

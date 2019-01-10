@@ -15,9 +15,8 @@ in detail in the tutorials:
     <http://insights-core-tutorial.readthedocs.io>`_
 
 
-If you would like to just run the examples follow the ``Preparing Your Development Environment`` to create the 
-environment and run the pytest, this test runs the test for the components in the 
-``insights-core-tutorials/insights-examples`` directory structure.
+If you would like to just run pytest for the examples follow the ``Preparing Your Development Environment`` section of 
+``Insights Core Tutorials Read the Docs`` to create the environment and run the pytests.
 
 The examples directory includes these files::
     

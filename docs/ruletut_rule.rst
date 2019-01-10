@@ -8,7 +8,7 @@ Create a file called ``is_fedora.py`` in a Python package called ``tutorial``.
 
 .. code-block:: shell
 
-    (env)[userone@hostone ~]$ cd ~/github/insights-core-tutorials/mycomponents/rules
+    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials/mycomponents/rules
     (env)[userone@hostone rules]$ touch is_fedora.py
 
 Open ``is_fedora.py`` in your text editor of choice and start by stubbing out

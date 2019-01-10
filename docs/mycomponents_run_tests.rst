@@ -9,7 +9,7 @@ directory as discribed in :ref:`development environment preparation <set_cfg_for
 
 .. code-block:: shell
 
-   (env)[userone@hostone ~]$ cd ~/github/insights-core-tutorials
+   (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
    $ (env)[userone@hostone insights-core-tutorials] pytest
 
 This will run the tests for the components you created in ``mycomponents``

@@ -16,12 +16,15 @@ out the code go to the repository page for your fork and copy the link to
 download the repo.
 
 Once you have copied this link then go to a terminal in your working directory
-and use the ``git`` command to clone the repository.  In this example the
-working directory is ``/home/userone/github``::
+and use the ``git`` command to clone the repository.  In this tutorial we will be using 
+``work`` as the directory that will contain the ``isights-core-tutorials`` project.
+If you choose to use a different root directory you will need to substitute ``work``
+with your chosen root directory when referenced in the tutorial. So for the puposes of 
+this document our working directory is ``/home/userone/work``::
 
-    [userone@hostone ~]$ mkdir github
-    [userone@hostone ~]$ cd github
-    [userone@hostone work]$ git clone https://github.com/RedHatInsights/insights-core-tutorials.git
+    [userone@hostone ~]$ mkdir work
+    [userone@hostone ~]$ cd work
+    [userone@hostone work]$ git clone git@github.com:userone/insights-core-tutorials.git
     Cloning into 'insights-core-tutorials'...
     remote: Counting objects: 21251, done.
     remote: Compressing objects: 100% (88/88), done.
@@ -29,14 +32,20 @@ working directory is ``/home/userone/github``::
     Receiving objects: 100% (21251/21251), 5.95 MiB | 2.44 MiB/s, done.
     Resolving deltas: 100% (15938/15938), done.
 
-Next you need to follow the steps to create a virtual environment and set it up for development::
+Next you need to run the ``setup_env.sh`` script to set up your python environment.
+
+If you have used the script to setup you environment you can skip the maual setup instructions 
+and go straight to the .
+
+Else, if you would rather create the python environment manaually you can follow these steps 
+to create a virtual environment and set it up for development::
 
     [userone@hostone work]$ cd insights-core-tutorials
     [userone@hostone insights-core-tutorials]$ virtualenv -p python3.6 .
     Running virtualenv with interpreter /usr/bin/python3.6
     Using base prefix '/usr'
-    New python executable in /home/userone/github/insights-core-tutorials/bin/python3.6
-    Also creating executable in /home/userone/github/insights-core-tutorials/bin/python
+    New python executable in /home/userone/work/insights-core-tutorials/bin/python3.6
+    Also creating executable in /home/userone/working/insights-core-tutorials/bin/python
     Installing setuptools, pip, wheel...done.
 
     New python executable in ./bin/python
@@ -53,16 +62,20 @@ Now install all of the required packages for ``insights-core-tutorials`` develop
     
     (env)[userone@hostone insights-core-tutorials]$ pip install -e .[develop]
 
-Once these steps have been completed you will have a complete development
-environment for parsers and combiners.  You can confirm that everything is setup
-correctly by running the tests, ``pytest``.  This will test the components in the 
-``insights_examples`` directory. 
+.. _skip_to_pytest:
+
+Once you have completed the setup of the environment by either running the provided script 
+or running the preceeding setup steps manually, you will have a complete development
+environment for rules, parsers and combiners.  
+You can now confirm that everything is setup correctly by running the tests, ``pytest``.  
+
+This will test the components in the ``insights_examples`` directory. 
 Your results should look something like this::
 
    (env)[userone@hostone insights-core-tutorials]$ pytest
-   ========================================================================================= test session starts ================================================================================================
+   ================================================================== test session starts ===================================================================
    platform linux -- Python 3.6.6, pytest-3.0.6, py-1.7.0, pluggy-0.4.0
-   rootdir: /home/lhuett/gitlab/insights-core-tutorials, inifile: setup.cfg
+   rootdir: /home/lhuett/work/insights-core-tutorials, inifile: setup.cfg
    plugins: cov-2.6.0
    collected 8 items 
 
@@ -71,7 +84,7 @@ Your results should look something like this::
    insights_examples/rules/tests/integration.py ...
    insights_examples/rules/tests/test_sshd_secure.py .
 
-   ====================================================================================== 10 passed in 0.30 seconds ==============================================================================================
+   ============================================================== 10 passed in 0.30 seconds =================================================================
 
 If during this step you see a test failure similar to the following make sure
 you have ``unzip`` installed on your system::
@@ -87,7 +100,7 @@ each of the components (parsers, combiners and rules) in.
 
 Here are the commands to complete the development environment for each component::
 
-    (env)[userone@hostone ~]$ cd ~/github/insights-core-tutorials
+    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
     (env)[userone@hostone insights-core-tutorials]$ mkdir mycomponents
     (env)[userone@hostone insights-core-tutorials]$ cd mycomponents
     (env)[userone@hostone mycomponents]$ touch __init__.py
@@ -104,7 +117,7 @@ Here are the commands to complete the development environment for each component
     (env)[userone@hostone mycomponents]$ mkdir ./rules/tests
     (env)[userone@hostone mycomponents]$ touch ./rules/tests/__init__.py
 
-    (env)[userone@hostone mycomponents]$ export PYTHONPATH=~/github/insights-core-tutorials/mycomponents:$PYTHONPATH
+    (env)[userone@hostone mycomponents]$ export PYTHONPATH=~/work/insights-core-tutorials/mycomponents:$PYTHONPATH
 
 .. _set_cfg_for_mycomponents:
     
