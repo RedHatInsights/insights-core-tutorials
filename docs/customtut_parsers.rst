@@ -114,10 +114,9 @@ to make sure everything is setup correctly::
        or see some other related message that doesn't make sense. The first
        think to check is that you have activated your virtual environment by
        executing the command ``source bin/activate`` from the root directory
-       of your insights-core project.  Your prompt should change to include
-       ``(insights-core)`` if your virtual environment is activated. You can
-       deactivate the virtual environment by typing ``deactivate``. You can
-       find more information about virtual environments here:
+       of your insights-core-tutorials project. You can deactivate the virtual
+       environment by typing ``deactivate``. You can find more information
+       about virtual environments here:
        http://docs.python-guide.org/en/latest/dev/virtualenvs/
 
 Parser Implementation
@@ -351,10 +350,10 @@ Since the ``sshd_config`` spec requires root access to access the
 
 To get the ``ssh_config`` file needed for the local sshd_config spec you can
 copy it from ``~/work/insights-core-tutorials/insights_examples/parsers/sshd_config`` to the
-``~/githib/insights-core-tutorials/mycomponents/parsers`` directory as shown below.
+``~/work/insights-core-tutorials/mycomponents/parsers`` directory as shown below.
 
 
-    (insights-core)[userone@hostone insights-core-tutorials]$ cp ./examples/parsers/sshd_config ./mycomponents/parsers/
+    (env)[userone@hostone insights-core-tutorials]$ cp ./insights_examples/parsers/sshd_config ./mycomponents/parsers/
 
 We can use ``namedtuples`` to help simplify access to the information we
 are storing in our parser by creating a namedtuple with the named attributes
@@ -702,7 +701,7 @@ To run ``pytest`` on just the completed ``secure_shell`` parser execute the foll
 
 
     (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
-    (insights-core)[userone@hostone insights-core-tutorials]$ pytest -k secure_shell
+    (env)[userone@hostone insights-core-tutorials]$ pytest -k secure_shell
 
 Once your tests all run successfully your parser is complete.
 

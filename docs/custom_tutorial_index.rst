@@ -11,8 +11,8 @@ There are three primary phases to developing a rule:
 3. Test the rule and parser
 
 We'll cover each step in detail in the sections ahead, so let's get started!  All
-of the example code is available in the ``insights-core/docs/examples`` directory
-of the insights-core project.
+of the example code is available in the ``insights_examples`` directory
+of the insights-core-tutorials project.
 
 .. toctree::
     :hidden:

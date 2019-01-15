@@ -6,7 +6,7 @@ Preparing Your Development Environment
 First you need to ensure you have the ``git`` and ``gcc`` tools available. 
 On Red Hat Enterprise Linux you can do this with the command, as root: ``yum install git gcc``.
 
-Now create your own fork of the insights-core project.  Do this by
+Now create your own fork of the insights-core-tutorials project. Do this by
 going to the `insights-core-tutorials` Repository on GitHub and clicking on the
 **Fork** button.
 
@@ -45,7 +45,7 @@ to create a virtual environment and set it up for development::
     Running virtualenv with interpreter /usr/bin/python3.6
     Using base prefix '/usr'
     New python executable in /home/userone/work/insights-core-tutorials/bin/python3.6
-    Also creating executable in /home/userone/working/insights-core-tutorials/bin/python
+    Also creating executable in /home/userone/work/insights-core-tutorials/bin/python
     Installing setuptools, pip, wheel...done.
 
     New python executable in ./bin/python
@@ -62,43 +62,13 @@ Now install all of the required packages for ``insights-core-tutorials`` develop
     
     (env)[userone@hostone insights-core-tutorials]$ pip install -e .[develop]
 
-.. _skip_to_pytest:
-
-Once you have completed the setup of the environment by either running the provided script 
-or running the preceeding setup steps manually, you will have a complete development
-environment for rules, parsers and combiners.  
-You can now confirm that everything is setup correctly by running the tests, ``pytest``.  
-
-This will test the components in the ``insights_examples`` directory. 
-Your results should look something like this::
-
-   (env)[userone@hostone insights-core-tutorials]$ pytest
-   ================================================================== test session starts ===================================================================
-   platform linux -- Python 3.6.6, pytest-3.0.6, py-1.7.0, pluggy-0.4.0
-   rootdir: /home/lhuett/work/insights-core-tutorials, inifile: setup.cfg
-   plugins: cov-2.6.0
-   collected 8 items 
-
-   insights_examples/combiners/tests/test_hostname_uh.py .
-   insights_examples/parsers/tests/test_secure_shell.py ...
-   insights_examples/rules/tests/integration.py ...
-   insights_examples/rules/tests/test_sshd_secure.py .
-
-   ============================================================== 10 passed in 0.30 seconds =================================================================
-
-If during this step you see a test failure similar to the following make sure
-you have ``unzip`` installed on your system::
-    
-    >           raise child_exception
-    E           CalledProcessError: <CalledProcessError(0, ['unzip', '-q', '-d',
-    '/tmp/tmplrXhIu', '/tmp/test.zip'], [Errno 2] No such file or directory)>
-
-    /usr/lib64/python2.7/subprocess.py:1327: CalledProcessError
-
 Next you will need to create ``mycomponents`` directory and directories to develop
 each of the components (parsers, combiners and rules) in.
 
-Here are the commands to complete the development environment for each component::
+.. _set_cfg_for_mycomponents:
+
+The following are the commands to create the ``mycomponents`` development environment
+for each component::
 
     (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
     (env)[userone@hostone insights-core-tutorials]$ mkdir mycomponents
@@ -119,22 +89,38 @@ Here are the commands to complete the development environment for each component
 
     (env)[userone@hostone mycomponents]$ export PYTHONPATH=~/work/insights-core-tutorials/mycomponents:$PYTHONPATH
 
-.. _set_cfg_for_mycomponents:
-    
-As you build your components and tests you will want to run the tests. If you would like to disable the running of 
-the tests located in the insights_examples directory and only run the tests located in your newly created ``mycomponents`` 
-directory, edit the setup.cfg in the ``insights-core-tutorials`` root directory as follows.
 
-Replace ``insights_examples/*`` in the following line with ``mycomponents/*``::
-   ``python_files = "insights_examples/*"``
-It should look like this now::
-   ``python_files = "mycomponents/*"``
+Once you have completed the setup of the environment by either running the provided script
+or running the preceeding setup steps manually, you will have a complete development
+environment for rules, parsers, combiners and for your mycomonents development directory.
 
-Replace ``insights_examples`` in the following line with ``mycomponents``::
-   ``testpaths = "insights_examples"``
-It should look like this now::
-   ``testpaths = "mycomponents"`` 
+You can now confirm that everything is setup correctly so far by running the tests, ``pytest``.
 
+This will test the components in the ``insights_examples`` directory.
+Your results should look something like this::
+
+   (env)[userone@hostone insights-core-tutorials]$ pytest
+   ================================================================== test session starts ===================================================================
+   platform linux -- Python 3.6.6, pytest-4.0.1, py-1.7.0, pluggy-0.8.0
+   rootdir: /home/userone/work/insights-core-tutorials, inifile: setup.cfg
+   plugins: cov-2.6.1
+   collected 10 items
+
+   insights_examples/combiners/tests/test_hostname_uh.py .
+   insights_examples/parsers/tests/test_secure_shell.py ...
+   insights_examples/rules/tests/integration.py ...
+   insights_examples/rules/tests/test_sshd_secure.py .
+
+   ============================================================== 10 passed in 0.30 seconds =================================================================
+
+If during this step you see a test failure similar to the following make sure
+you have ``unzip`` installed on your system::
+
+    >           raise child_exception
+    E           CalledProcessError: <CalledProcessError(0, ['unzip', '-q', '-d',
+    '/tmp/tmplrXhIu', '/tmp/test.zip'], [Errno 2] No such file or directory)>
+
+    /usr/lib64/python2.7/subprocess.py:1327: CalledProcessError
 
 Your development environment is now ready to begin development and you may move
 on to the next section.  If you had problems with any of these steps then

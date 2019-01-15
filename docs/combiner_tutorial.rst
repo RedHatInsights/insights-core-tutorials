@@ -1,8 +1,8 @@
 .. _tutorial-combiner-development:
 
-###############################
-Tutorial - Combiner Development
-###############################
+##########################
+Tutorial - Custom Combiner
+##########################
 
 ********************
 Combiner Development
@@ -25,7 +25,7 @@ Another example is the ``GrubConf`` combiner which evaluates multiple versions
 of information for Grub configuration on a system.
 
 You can find the complete implementation of the combiner and test code in the
-directory ``insights/docs/examples/combiners``.
+directory ``insights-core-tutorials/insights_examples/combiners``.
 
 Preparing Your Development Environment
 ======================================
@@ -103,13 +103,14 @@ to make sure everything is setup correctly::
     (env)[userone@hostone insights-core-tutorials]$ pytest -k hostname_uh
     ======================= test session starts ==============================
        platform linux -- Python 3.6.6, pytest-3.0.6, py-1.7.0, pluggy-0.4.0
-       rootdir: /home/lhuett/gitlab/insights-core-tutorials, inifile:
+       rootdir: /home/userone/work/insights-core-tutorials, inifile:
 
-       collected 6 items / 5 deselected 
+       collected 16 items / 14 deselected
 
-       combiners/tests/test_hostname_uh.py .
+       insights_examples/combiners/tests/test_hostname_uh.py .                                                                                                                                          [ 50%]
+       mycomponents/combiners/tests/test_hostname_uh.py .
 
-    ============ 1 passed, 5 deselected in 1.02 seconds ====================
+    ============ 2 passed, 14 deselected in .27 seconds ====================
 
 When you invoke ``pytest`` with the ``-k`` option it will only run tests
 which match the filter, in this case tests that match *hostname_uh*.  So our
@@ -119,10 +120,9 @@ test passed as expected.
        or see some other related message that doesn't make sense. The first
        think to check is that you have activated your virtual environment by
        executing the command ``source bin/activate`` from the root directory
-       of your insights-core project.  Your prompt should change to include
-       ``(insights-core)`` if your virtual environment is activated. You can
-       deactivate the virtual environment by typing ``deactivate``. You can
-       find more information about virtual environments here:
+       of your insights-core-tutorials project. You can deactivate the virtual
+       environment by typing ``deactivate``. You can find more information about
+       virtual environments here:
        http://docs.python-guide.org/en/latest/dev/virtualenvs/
 
 Combiner Implementation
@@ -283,13 +283,14 @@ written our combiner to pass all tests::
     (env)[userone@hostone insights-core-tutorials]$ pytest -k hostname_uh
     ======================= test session starts ==============================
        platform linux -- Python 3.6.6, pytest-3.0.6, py-1.7.0, pluggy-0.4.0
-       rootdir: /home/lhuett/core_examples/examples, inifile:
-       plugins: cov-2.4.0
+       rootdir: /home/userone/insights-core-tutorials, inifile: setup.cfg
+       plugins: cov-2.6.1
        collected 6 items / 5 deselected
 
-       combiners/tests/test_hostname_uh.py .
+       insights_examples/combiners/tests/test_hostname_uh.py .                                                                                                                                          [ 50%]
+       mycomponents/combiners/tests/test_hostname_uh.py .
 
-    ============ 1 passed, 5 deselected in 0.35 seconds ====================
+    ============ 2 passed, 14 deselected in 0.35 seconds ====================
 
 Combiner Documentation and Testing
 ----------------------------------

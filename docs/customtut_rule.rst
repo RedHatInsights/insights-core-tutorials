@@ -590,19 +590,16 @@ We execute these tests by moving to the root directory of our rules
 project, ensuring that our virtual environment is active, and running
 ``pytest``::
 
-    (env)[userone@hostone mycomponents]$ pytest
-    ====================== test session starts ===============================
-    platform linux -- Python 3.6.6, pytest-3.0.6, py-1.7.0, pluggy-0.4.0
-    rootdir: /home/lhuett/core_examples/examples, inifile:
+    (env)[userone@hostone mycomponents]$ pytest -k mycomponents/rules
+    ====================== test session starts =============================================
+    platform linux -- Python 3.6.6, pytest-4.0.2, py-1.7.0, pluggy-0.8.0
+    rootdir: /home/userone/work/insights-core-tutorials, inifile: setup.cfg
     plugins: cov-2.4.0
-    collected 8 items
+    collected 15 items / 9 deslected
 
-    combiners/tests/test_hostname_uh.py .
-    parsers/tests/test_secure_shell.py ...
-    rules/tests/test_integration.py ...
-    rules/tests/test_sshd_secure.py .
-
-    =================== 8 passed in 0.20 seconds =============================
+    mycomponents/rules/tests/integration.py .....                                                                                                                                                    [ 83%]
+    mycomponents/rules/tests/test_sshd_secure.py .
+    =================== 6 passed, 9 deselected in 0.30 seconds =============================
 
 You may also want to run the rule using ``insights-run``.
 This will give you a better idea of what the output would be from the rule.
