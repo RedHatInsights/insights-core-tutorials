@@ -63,19 +63,15 @@ create_mycomponents_dirs(){
     echo ''
     echo '*** Creating the mycomponents directories ***'
 
-    mkdir -p mycomponents
-    touch ./mycomponents/__init__.py
-    mkdir -p ./mycomponents/parsers
-    touch ./mycomponents/parsers/__init__.py
     mkdir -p ./mycomponents/parsers/tests
+    touch ./mycomponents/__init__.py
+    touch ./mycomponents/parsers/__init__.py
     touch ./mycomponents/parsers/tests/__init__.py
-    mkdir -p ./mycomponents/combiners
-    touch ./mycomponents/combiners/__init__.py
     mkdir -p ./mycomponents/combiners/tests
+    touch ./mycomponents/combiners/__init__.py
     touch ./mycomponents/combiners/tests/__init__.py
-    mkdir -p ./mycomponents/rules
-    touch ./mycomponents/rules/__init__.py
     mkdir -p ./mycomponents/rules/tests
+    touch ./mycomponents/rules/__init__.py
     touch ./mycomponents/rules/tests/__init__.py
 }
 

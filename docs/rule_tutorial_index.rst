@@ -1,4 +1,4 @@
-Tutorial - Rule Using Existing Parsers and Combiners
+Tutorial - Rule Development
 ====================================================
 
 In this tutorial we'll walk through authoring a new insights-core rule. 
@@ -14,6 +14,5 @@ We'll cover each step in detail in the sections ahead, so let's get started!
 .. toctree::
     :hidden:
 
-    ruletut_parsers
     ruletut_rule
-    ruletut_tests
+    customtut_rule

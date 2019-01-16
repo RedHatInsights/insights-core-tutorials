@@ -1,8 +1,14 @@
-.. _tutorial-rule-development:
+.. _tutorial-custom-rule-development:
 
-###########################
-Tutorial - Rule Development
-###########################
+########################
+Rule Using Custom Parser
+########################
+
+
+
+************************
+Overview
+************************
 
 The purpose of a rule is to evaluate various facts and determine one or more
 results about a system.  For our example rule we are interested in knowing
@@ -28,22 +34,9 @@ We also want to know what version of OpenSSH we are running if we find any probl
 You can find the complete implementation of the rule and test code in the
 directory ``insights-core-tutorials/insights_examples/rules``.
 
-**************************************
-Preparing Your Development Environment
-**************************************
+The same development environment will be used that was setup at the beginning
+of the tutorial using the :ref:`tutorial-development-environment` section.
 
-We will use the same development environment that is necessary for Parser
-Development which is described in :ref:`tutorial-development-environment`.
-
-Make sure
-you start with your virtual environment set to the insights-core-tutorials project::
-
-    [userone@hostone ~]$ cd ~/work/insights-core-tutorials
-    [userone@hostone insights-core-tutorials]$ source bin/activate
-    (env)[userone@hostone insights-core-tutorials]$ cd mycomponents
-    (env)[userone@hostone mycomponents]$ 
-
-You are now ready to begin writing your rule.
 
 ************************
 Secure Shell Server Rule
@@ -584,7 +577,7 @@ create the return value in ``ssh_secure.report``.
        yield input_data, expected
 
 Running the Tests
-=================
+-----------------
 
 We execute these tests by moving to the root directory of our rules
 project, ensuring that our virtual environment is active, and running

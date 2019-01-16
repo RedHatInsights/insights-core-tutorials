@@ -7,9 +7,9 @@ Contents:
     :maxdepth: 4
 
     prep_tutorial_env
-    rule_tutorial_index
-    custom_tutorial_index
+    customtut_parsers
     combiner_tutorial
+    rule_tutorial_index
     mycomponents_run_tests
 
 Indices and tables

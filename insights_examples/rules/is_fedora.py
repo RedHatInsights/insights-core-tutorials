@@ -1,19 +1,25 @@
 from insights.parsers.redhat_release import RedhatRelease
 from insights.core.plugins import make_response, rule
+from insights_examples.combiners.hostname_uh import HostnameUH
+
+from insights import run
 
 # Jinga template for message to be displayed for either
 # response tag
 CONTENT = {
-    "IS_FEDORA": "This machine runs {{product}}.",
-    "IS_NOT_FEDORA": "This machine runs {{product}}."
+    "IS_FEDORA": "This machine ({{hostname}}) runs {{product}}.",
+    "IS_NOT_FEDORA": "This machine ({{hostname}}) runs {{product}}."
 }
 
 
-@rule(RedhatRelease, content=CONTENT)
-def report(rel):
+@rule(RedhatRelease, HostnameUH, content=CONTENT)
+def report(rel, hostname):
     """Fires if the machine is running Fedora."""
 
     if "Fedora" in rel.product:
-        return make_response("IS_FEDORA", product=rel.product)
+        return make_response("IS_FEDORA", hostname=hostname.hostname, product=rel.product)
     else:
-        return make_response("IS_NOT_FEDORA", product=rel.product)
+        return make_response("IS_NOT_FEDORA",  hostname=hostname.hostname, product=rel.product)
+
+if __name__ == "__main__":
+    run(report, print_summary=True)

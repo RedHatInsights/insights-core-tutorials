@@ -3,6 +3,9 @@
 Preparing Your Development Environment
 ======================================
 
+Begin Setup
+-----------
+
 First you need to ensure you have the ``git`` and ``gcc`` tools available. 
 On Red Hat Enterprise Linux you can do this with the command, as root: ``yum install git gcc``.
 
@@ -34,10 +37,17 @@ this document our working directory is ``/home/userone/work``::
 
 Next you need to run the ``setup_env.sh`` script to set up your python environment.
 
-If you have used the script to setup you environment you can skip the maual setup instructions 
-and go straight to the .
+    (env)[userone@hostone insights-core-tutorials]$ setup_env.py
 
-Else, if you would rather create the python environment manaually you can follow these steps 
+If you ran the script to setup you environment you can skip the manual setup instructions
+and go straight to the
+:ref:`setup_complete`.
+
+
+Manual Setup (Not required if you ran setup_env.py)
+---------------------------------------------------
+
+Else, if you would rather create the python environment manaually you can follow these steps
 to create a virtual environment and set it up for development::
 
     [userone@hostone work]$ cd insights-core-tutorials
@@ -65,27 +75,21 @@ Now install all of the required packages for ``insights-core-tutorials`` develop
 Next you will need to create ``mycomponents`` directory and directories to develop
 each of the components (parsers, combiners and rules) in.
 
-.. _set_cfg_for_mycomponents:
+
 
 The following are the commands to create the ``mycomponents`` development environment
 for each component::
 
-    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
-    (env)[userone@hostone insights-core-tutorials]$ mkdir mycomponents
-    (env)[userone@hostone insights-core-tutorials]$ cd mycomponents
-    (env)[userone@hostone mycomponents]$ touch __init__.py
-    (env)[userone@hostone mycomponents]$ mkdir parsers
-    (env)[userone@hostone mycomponents]$ touch ./parsers/__init__.py
-    (env)[userone@hostone mycomponents]$ mkdir ./parsers/tests
-    (env)[userone@hostone mycomponents]$ touch ./parsers/tests/__init__.py
-    (env)[userone@hostone mycomponents]$ mkdir combiners
-    (env)[userone@hostone mycomponents]$ touch ./combiners/__init__.py
-    (env)[userone@hostone mycomponents]$ mkdir ./combiners/tests
-    (env)[userone@hostone mycomponents]$ touch ./combiners/tests/__init__.py
-    (env)[userone@hostone mycomponents]$ mkdir rules
-    (env)[userone@hostone mycomponents]$ touch ./rules/__init__.py
-    (env)[userone@hostone mycomponents]$ mkdir ./rules/tests
-    (env)[userone@hostone mycomponents]$ touch ./rules/tests/__init__.py
+    (env)[userone@hostone insights-core-tutorials]$ mkdir -p ./mycomponents/parsers/tests
+    (env)[userone@hostone mycomponents]$ touch ./mycomponents/__init__.py
+    (env)[userone@hostone mycomponents]$ touch ./mycomponents/parsers/__init__.py
+    (env)[userone@hostone mycomponents]$ touch ./mycomponents/parsers/tests/__init__.py
+    (env)[userone@hostone mycomponents]$ mkdir -p ./mycomponents/combiners/tests
+    (env)[userone@hostone mycomponents]$ touch ./mycomponents/combiners/__init__.py
+    (env)[userone@hostone mycomponents]$ touch ./mycomponents/combiners/tests/__init__.py
+    (env)[userone@hostone mycomponents]$ mkdir -p ./mycomponents/rules/tests
+    (env)[userone@hostone mycomponents]$ touch ./mycomponents/rules/__init__.py
+    (env)[userone@hostone mycomponents]$ touch ./mycomponents/rules/tests/__init__.py
 
     (env)[userone@hostone mycomponents]$ export PYTHONPATH=~/work/insights-core-tutorials/mycomponents:$PYTHONPATH
 
@@ -95,6 +99,9 @@ or running the preceeding setup steps manually, you will have a complete develop
 environment for rules, parsers, combiners and for your mycomonents development directory.
 
 You can now confirm that everything is setup correctly so far by running the tests, ``pytest``.
+
+If you ran the ``setup_env.py`` script the pytests will have been run by the script, you
+should see the results in console when the script finishes.
 
 This will test the components in the ``insights_examples`` directory.
 Your results should look something like this::
@@ -112,6 +119,12 @@ Your results should look something like this::
    insights_examples/rules/tests/test_sshd_secure.py .
 
    ============================================================== 10 passed in 0.30 seconds =================================================================
+
+
+.. _setup_complete:
+
+Setup Complete
+--------------
 
 If during this step you see a test failure similar to the following make sure
 you have ``unzip`` installed on your system::

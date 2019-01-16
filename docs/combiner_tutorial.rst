@@ -1,12 +1,9 @@
 .. _tutorial-combiner-development:
 
-##########################
-Tutorial - Custom Combiner
-##########################
+######################################
+Tutorial - Custom Combiner Development
+######################################
 
-********************
-Combiner Development
-********************
 In the Map-Reduce model, Parsers are responsible for mapping the data from a
 datasource and Combiners are responsible for reducing the data from multiple
 Parsers into a reduced dataset.  Combiners help to consolidate information from
@@ -27,17 +24,15 @@ of information for Grub configuration on a system.
 You can find the complete implementation of the combiner and test code in the
 directory ``insights-core-tutorials/insights_examples/combiners``.
 
-Preparing Your Development Environment
-======================================
-
-We will use the same development environment that is necessary for Parser
-Development which is described in :ref:`tutorial-development-environment`.
 
 Hostname Combiner
 =================
 
 Overview
 --------
+
+The same development environment will be used that was setup at the beginning
+of the tutorial using the :ref:`tutorial-development-environment` section.
 
 For this tutorial we will create a new *hostname* combiner that will consolidate
 information from the :py:class:`insights.parsers.uname.Uname` and

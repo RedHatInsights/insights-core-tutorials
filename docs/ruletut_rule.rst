@@ -1,5 +1,33 @@
+.. _tutorial-custom_rule-development:
+
+#######################################
+Rule Using Existing Parser and Combiner
+#######################################
+
+
+Determine rule logic
+====================
+
+The most effective way to get started in developing a rule is first to identify the
+problem you want to address.
+
+For the purposes of this tutorial we'll look at a very simple scenario. Sometimes when
+researching an issue one of the things that we might need to know is which Red Hat OS the
+host is running. For simplicity sake, in this example we will concentrate only on
+determining if the red hat release is ``Fedora``.
+
+For this case there is one thing we need to check:
+
+1. Is the Red Hat release ``Fedora``:
+
+
+Identify Parsers
+================
+
+- We can check Red Hat Release using the ``RedhatRelease`` parser.
+
 Develop Plugin
---------------
+==============
 
 Now that we have identified the required parsers, let's get started on
 developing our plugin.
@@ -100,6 +128,108 @@ Here we check to see if the value ``Fedora`` is in the "product" property of the
 is indeed running ``Fedora``, along with the product information returned by the
 parser. If false then the rule returns a response telling us that the host is
 not running ``Fedora``, along with the product information returned by the parser.
+
+
+Develop Tests
+=============
+
+Start out by creating a ``test_is_fedora.py`` module in a ``tests`` package.
+
+.. code-block:: shell
+
+    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials/rules/tests
+    (env)[userone@hostone tests]$ touch __init__.py
+    (env)[userone@hostone tests]$ touch test_is_fedora.py
+
+Open ``test_is_fedora.py`` in your text editor of choice and start by stubbing
+out a test and the required imports.
+
+.. code-block:: python
+   :linenos:
+
+    from .. import is_fedora
+    from insights.specs import Specs
+    from insights.tests import InputData, archive_provider
+    from insights.core.plugins import make_response
+
+
+    @archive_provider(is_fedora.report)
+    def integration_test():
+        pass
+
+The framework provides an integration test framework that allows you to define
+an ``InputData`` object filled with raw examples of files required by your rule
+and an expected response.  The object is evaluated by the pipeline as it would
+be in a production context, after which the response is compared to your
+expected output.
+
+The ``@archive_provider`` decorator registers your test function with the
+framework.  This function must be a generator that yields ``InputData`` and an
+expected response in a two tuple.  The ``@archive_provider`` decorator takes
+one parameter, the rule function to test.
+
+The bulk of the work in building a test for a rule is in defining the
+``InputData`` object.  If you remember our rule we accept ``RedhatRelease``.
+We will define a data snippet for each test.
+
+.. code-block:: python
+
+    FEDORA = "Fedora release 28 (Twenty Eight)".strip()
+    RHEL = "Red Hat Enterprise Linux Server release 7.4 (Maipo)".strip()
+    TEST_HOSTNAME = "testhost.someplace.com"
+
+Next for each test we need to build ``InputData`` objects and populate it with the content
+and build the expected return. Then finally we need to yield the pair.
+
+.. code-block:: python
+   :lineno-start: 16
+
+    input_data = InputData("test_fedora")
+    input_data.add(Specs.redhat_release, FEDORA)
+    input_data.add(Specs.hostname, TEST_HOSTNAME)
+    expected = make_response("IS_FEDORA", hostname=TEST_HOSTNAME, product="Fedora")
+
+    yield input_data, expected
+
+    input_data = InputData("test_rhel")
+    input_data.add(Specs.redhat_release, RHEL)
+    input_data.add(Specs.hostname, TEST_HOSTNAME)
+    expected = make_response("IS_NOT_FEDORA", hostname=TEST_HOSTNAME, product="Red Hat Enterprise Linux Server")
+
+    yield input_data, expected
+
+
+Now for the entire test:
+
+.. code-block:: python
+    :linenos:
+
+    from .. import is_fedora
+    from insights.specs import Specs
+    from insights.tests import InputData, archive_provider
+    from insights.core.plugins import make_response
+
+    FEDORA = "Fedora release 28 (Twenty Eight)"
+    RHEL = "Red Hat Enterprise Linux Server release 7.4 (Maipo)"
+
+
+    @archive_provider(is_fedora.report)
+    def integration_test():
+
+        input_data = InputData("test_fedora")
+        input_data.add(Specs.redhat_release, FEDORA)
+        input_data.add(Specs.hostname, TEST_HOSTNAME)
+        expected = make_response("IS_FEDORA", hostname=TEST_HOSTNAME, product="Fedora")
+
+
+        yield input_data, expected
+
+        input_data = InputData("test_rhel")
+        input_data.add(Specs.redhat_release, RHEL)
+        input_data.add(Specs.hostname, TEST_HOSTNAME)
+        expected = make_response("IS_NOT_FEDORA", hostname=TEST_HOSTNAME, product="Red Hat Enterprise Linux Server")
+
+        yield input_data, expected
 
 .. _return value of a rule:  https://insights-core.readthedocs.io/en/latest/api.html#rule-output
 

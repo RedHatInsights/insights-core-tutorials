@@ -1,7 +1,12 @@
 .. _tutorial-parser-development:
 
+
+##########################
+Tutorial - Custom Parser
+##########################
+
 *****************************
-Tutorial - Parser Development
+Parser Development
 *****************************
 
 The purpose of a Parser is to process raw content collected by the Client
