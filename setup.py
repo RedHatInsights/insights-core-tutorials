@@ -23,7 +23,7 @@ docs = set([
 ])
 
 testing = set([
-    'coverage==4.3.4',
+    'coverage==4.4',
     'pytest==3.0.6',
     'pytest-cov==2.4.0',
     'mock==2.0.0',
