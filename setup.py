@@ -45,9 +45,9 @@ if __name__ == "__main__":
         install_requires=list(runtime),
         extras_require={
             'develop': list(runtime | develop | docs | linting | testing),
-            'docs': list(docs)
-            'linting': list(linting)
-            `testing`: list(testing)
+            'docs': list(docs),
+            'linting': list(linting),
+            'testing': list(testing)
         },
         include_package_data=True
     )
