@@ -19,7 +19,8 @@ def report(rel, hostname):
     if "Fedora" in rel.product:
         return make_response("IS_FEDORA", hostname=hostname.hostname, product=rel.product)
     else:
-        return make_response("IS_NOT_FEDORA",  hostname=hostname.hostname, product=rel.product)
+        return make_response("IS_NOT_FEDORA", hostname=hostname.hostname, product=rel.product)
+
 
 if __name__ == "__main__":
     run(report, print_summary=True)

@@ -58,5 +58,6 @@ def report(installed_rpms, sshd_config):
         openssh_version = installed_rpms.get_max('openssh')
         return make_response(ERROR_KEY, errors=errors, openssh=openssh_version.package)
 
+
 if __name__ == "__main__":
     run(report, print_summary=True)

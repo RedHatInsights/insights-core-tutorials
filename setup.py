@@ -39,7 +39,6 @@ if __name__ == "__main__":
         name="insights-core-tutorials",
         version="0.0.1",
         description="Insights Core Rule, Parser and Combiner Tutorials",
-#        url="https://gitlab.cee.redhat.com/support-insights/support-rules",
         author="Red Hat, Inc.",
         packages=find_packages(),
         install_requires=list(runtime),
