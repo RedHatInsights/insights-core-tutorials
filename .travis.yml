@@ -1,9 +1,9 @@
+# This file contains configuration that drives the Travics CI process
+if: branch = master OR type = pull_request
+
 language: python
 python:
     - "3.6"
 install: pip install -e .[develop]
 script: ./build.sh
 sudo: required
-env:
-  global:
-  - COMMIT=${TRAVIS_COMMIT::8}

@@ -7,7 +7,7 @@ runtime = set([
 
 develop = set([
     'flake8',
-    'pytest<4.1.0',
+    'pytest>=3.6',
     'jinja2',
     'ipython',
     'jupyter',
