@@ -5,6 +5,3 @@ python:
 install: pip install -e .[develop]
 script: ./build.sh
 sudo: required
-env:
-  global:
-  - COMMIT=${TRAVIS_COMMIT::8}
