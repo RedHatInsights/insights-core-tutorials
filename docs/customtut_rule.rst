@@ -293,7 +293,7 @@ rule:
 
 To increase the readability of the rule output and possibly make the transition to insights content
 format smoother, add Jinga formatting to the sshd_secure rule. Here is the refactored
-code with the additional Jinga formatting::
+code with the additional Jinga formatting:
 
 .. code-block:: python
    :linenos:
