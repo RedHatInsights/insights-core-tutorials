@@ -304,13 +304,13 @@ code with the additional Jinga formatting:
 
    ERROR_KEY = "SSHD_SECURE"
 
-# Jinga template displayed for make_response results
-CONTENT =  ERROR_KEY + """
-:{
-                {% for key, value in errors.items() -%}
-                    {{key}}: {{value}}
-                {% endfor -%} }
-OPEN_SSH_PACKAGE: {{openssh}}""".strip()
+    # Jinga template displayed for make_response results
+    CONTENT =  ERROR_KEY + """
+    :{
+                    {% for key, value in errors.items() -%}
+                        {{key}}: {{value}}
+                    {% endfor -%} }
+    OPEN_SSH_PACKAGE: {{openssh}}""".strip()
 
 
    def check_auth_method(sshd_config, errors):
