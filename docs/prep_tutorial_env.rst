@@ -106,7 +106,7 @@ rules, parsers, combiners and for your mycomponents development directory.
 
 You can now confirm that everything is setup correctly so far by running the tests, ``pytest``.
 
-If you ran the ``setup_env.py`` script the pytests will have been run by the script, you
+If you ran the ``setup_env.sh`` script the pytests will have been run by the script, you
 should see the results in console when the script finishes.
 
 This will test the components in the ``insights_examples`` directory.
