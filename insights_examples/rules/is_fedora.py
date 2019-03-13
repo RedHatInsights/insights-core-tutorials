@@ -4,6 +4,9 @@ from insights_examples.combiners.hostname_uh import HostnameUH
 
 from insights import run
 
+ERROR_KEY_IS_FEDORA = "IS_FEDORA"
+ERROR_KEY_IS_NOT_FEDORA = "IS_NOT_FEDORA"
+
 # Jinga template for message to be displayed for either
 # response tag
 CONTENT = {
@@ -17,9 +20,9 @@ def report(rel, hostname):
     """Fires if the machine is running Fedora."""
 
     if "Fedora" in rel.product:
-        return make_response("IS_FEDORA", hostname=hostname.hostname, product=rel.product)
+        return make_response(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
     else:
-        return make_response("IS_NOT_FEDORA", hostname=hostname.hostname, product=rel.product)
+        return make_response(ERROR_KEY_IS_NOT_FEDORA, hostname=hostname.hostname, product=rel.product)
 
 
 if __name__ == "__main__":
