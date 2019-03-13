@@ -6,6 +6,7 @@ CONTENT = {
     "BASH_BUG_NOT_PRESENT": "Bash bug not found: {{bash}}."
 }
 
+
 @rule(InstalledRpms)
 def check_bash_bug(rpms):
     bug_version = InstalledRpm.from_package('bash-4.4.14-1.any')
