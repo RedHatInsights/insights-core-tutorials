@@ -21,3 +21,4 @@ build/
 docs/_build
 env3*/
 mycomponents/
+dist
