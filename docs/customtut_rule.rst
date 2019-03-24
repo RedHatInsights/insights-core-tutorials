@@ -292,8 +292,8 @@ rule:
            return make_response(ERROR_KEY, errors=errors, openssh=openssh_version.package)
 
 To increase the readability of the rule output and possibly make the transition to insights content
-format smoother, add Jinga formatting to the sshd_secure rule. Here is the refactored
-code with the additional Jinga formatting:
+format smoother, add Jinja2 formatting to the sshd_secure rule. Here is the refactored
+code with the additional Jinja2 formatting:
 
 .. code-block:: python
    :linenos:
@@ -304,7 +304,7 @@ code with the additional Jinga formatting:
 
    ERROR_KEY = "SSHD_SECURE"
 
-    # Jinga template displayed for make_response results
+    # Jinja2 template displayed for make_response results
     CONTENT =  ERROR_KEY + """
     :{
                     {% for key, value in errors.items() -%}

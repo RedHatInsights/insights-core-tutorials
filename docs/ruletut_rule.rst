@@ -83,7 +83,7 @@ the `return value of a rule`_ function.
         "IS_NOT_FEDORA": "This machine runs {{product}}."
     }
 
-Here we define the ``Jinga`` template for message to be displayed for either
+Here we define the ``Jinja2`` template for message to be displayed for either
 response tag
 
 
