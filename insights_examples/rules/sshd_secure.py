@@ -1,4 +1,4 @@
-from insights.core.plugins import make_response, rule
+from insights.core.plugins import make_fail, rule
 from insights_examples.parsers.secure_shell import SshDConfig
 from insights.parsers.installed_rpms import InstalledRpms
 
@@ -65,7 +65,7 @@ def report(installed_rpms, sshd_config):
 
     if errors:
         openssh_version = installed_rpms.get_max('openssh')
-        return make_response(ERROR_KEY, errors=errors, openssh=openssh_version.package)
+        return make_fail(ERROR_KEY, errors=errors, openssh=openssh_version.package)
 
 
 if __name__ == "__main__":

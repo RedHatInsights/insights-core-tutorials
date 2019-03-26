@@ -1,7 +1,7 @@
 from insights_examples.rules import sshd_secure
 from insights_examples.parsers.secure_shell import LocalSpecs
 from insights.tests import InputData, archive_provider, context_wrap
-from insights.core.plugins import make_response
+from insights.core.plugins import make_fail
 from insights.specs import Specs
 from insights_examples.parsers.secure_shell import SshDConfig
 
@@ -76,7 +76,7 @@ def integration_tests():
         'PermitRootLogin': 'Yes',
         'Protocol': '1'
     }
-    expected = make_response(sshd_secure.ERROR_KEY,
+    expected = make_fail(sshd_secure.ERROR_KEY,
                              errors=errors,
                              openssh=EXPECTED_OPENSSH)
     yield input_data, expected
@@ -89,7 +89,7 @@ def integration_tests():
         'LogLevel': 'default',
         'PermitRootLogin': 'default'
     }
-    expected = make_response(sshd_secure.ERROR_KEY,
+    expected = make_fail(sshd_secure.ERROR_KEY,
                              errors=errors,
                              openssh=EXPECTED_OPENSSH)
     yield input_data, expected
