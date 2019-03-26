@@ -21,6 +21,6 @@ def integration_test():
     input_data = InputData("test_rhel")
     input_data.add(Specs.redhat_release, RHEL)
     input_data.add(Specs.hostname, TEST_HOSTNAME)
-    expected = make_fail("IS_NOT_FEDORA", hostname=TEST_HOSTNAME, product="Red Hat Enterprise Linux Server")
+    expected = make_fail("IS_FEDORA", hostname=TEST_HOSTNAME, product="Red Hat Enterprise Linux Server")
 
     yield input_data, expected
