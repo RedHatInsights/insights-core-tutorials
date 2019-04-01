@@ -46,7 +46,7 @@ the rule function and imports.
    :linenos:
 
     from insights.parsers.redhat_release import RedhatRelease
-    from insights import rule, make_response
+    from insights import rule, make_fail, make_pass
 
     @rule(RedhatRelease)
     def report(rhrel):
@@ -66,25 +66,26 @@ your rule.
 .. code-block:: python
    :lineno-start: 2
 
-    from insights import rule, make_response
+    from insights import rule, make_fail, make_pass
 
 ``rule`` is a function decorator used to specify your main plugin function.
 Combiners have a set of optional dependencies that are specified via the
 ``requires`` kwarg.
 
-``make_response`` is a formatting function used to format
+``make_fail, make_pass`` are formatting functions used to format
 the `return value of a rule`_ function.
 
 .. code-block:: python
    :lineno-start: 6
 
+    ERROR_KEY_IS_FEDORA = "IS_FEDORA"
+
     CONTENT = {
-        "IS_FEDORA": "This machine runs {{product}}.",
-        "IS_NOT_FEDORA": "This machine runs {{product}}."
+        ERROR_KEY_IS_FEDORA: "This machine ({{hostname}}) runs {{product}}.",
     }
 
-Here we define the ``Jinga`` template for message to be displayed for either
-response tag
+Here we defined the ``Jinga`` template for message to be displayed for the
+response tag for either pass or fail
 
 
 .. code-block:: python
@@ -105,9 +106,9 @@ Now let's add the rule logic
         """Fires if the machine is running Fedora."""
 
         if "Fedora" in rel.product:
-            return make_response("IS_FEDORA", product=rhrel.product)
+            return make_pass(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
         else:
-            return make_response("IS_NOT_FEDORA", product=rhrel.product)
+            return make_fail(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
 
 Now lets look at what the rule is doing.
 
@@ -119,9 +120,9 @@ host.
    :lineno-start: 16
 
         if "Fedora" in rhrel.product:
-            return make_response("IS_FEDORA", product=rhrel.product)
+            return make_pass(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
         else:
-            return make_response("IS_NOT_FEDORA", product=rhrel.product)
+            return make_fail(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
 
 Here we check to see if the value ``Fedora`` is in the "product" property of the
 "rhrel" object. If true then the rule returns a response telling us that the host
@@ -150,7 +151,7 @@ out a test and the required imports.
     from .. import is_fedora
     from insights.specs import Specs
     from insights.tests import InputData, archive_provider
-    from insights.core.plugins import make_response
+    from insights.core.plugins import make_fail, make_pass
 
 
     @archive_provider(is_fedora.report)
@@ -187,14 +188,14 @@ and build the expected return. Then finally we need to yield the pair.
     input_data = InputData("test_fedora")
     input_data.add(Specs.redhat_release, FEDORA)
     input_data.add(Specs.hostname, TEST_HOSTNAME)
-    expected = make_response("IS_FEDORA", hostname=TEST_HOSTNAME, product="Fedora")
+    expected = make_pass("IS_FEDORA", hostname=TEST_HOSTNAME, product="Fedora")
 
     yield input_data, expected
 
     input_data = InputData("test_rhel")
     input_data.add(Specs.redhat_release, RHEL)
     input_data.add(Specs.hostname, TEST_HOSTNAME)
-    expected = make_response("IS_NOT_FEDORA", hostname=TEST_HOSTNAME, product="Red Hat Enterprise Linux Server")
+    expected = make_fail("IS_FEDORA", hostname=TEST_HOSTNAME, product="Red Hat Enterprise Linux Server")
 
     yield input_data, expected
 
@@ -207,10 +208,11 @@ Now for the entire test:
     from .. import is_fedora
     from insights.specs import Specs
     from insights.tests import InputData, archive_provider
-    from insights.core.plugins import make_response
+    from insights.core.plugins import make_fail, make_pass
 
     FEDORA = "Fedora release 28 (Twenty Eight)"
     RHEL = "Red Hat Enterprise Linux Server release 7.4 (Maipo)"
+    TEST_HOSTNAME = "testhost.someplace.com"
 
 
     @archive_provider(is_fedora.report)
@@ -219,7 +221,7 @@ Now for the entire test:
         input_data = InputData("test_fedora")
         input_data.add(Specs.redhat_release, FEDORA)
         input_data.add(Specs.hostname, TEST_HOSTNAME)
-        expected = make_response("IS_FEDORA", hostname=TEST_HOSTNAME, product="Fedora")
+        expected = make_pass("IS_FEDORA", hostname=TEST_HOSTNAME, product="Fedora")
 
 
         yield input_data, expected
@@ -227,7 +229,7 @@ Now for the entire test:
         input_data = InputData("test_rhel")
         input_data.add(Specs.redhat_release, RHEL)
         input_data.add(Specs.hostname, TEST_HOSTNAME)
-        expected = make_response("IS_NOT_FEDORA", hostname=TEST_HOSTNAME, product="Red Hat Enterprise Linux Server")
+        expected = make_fail("IS_FEDORA", hostname=TEST_HOSTNAME, product="Red Hat Enterprise Linux Server")
 
         yield input_data, expected
 

@@ -9,7 +9,7 @@ ERROR_KEY_IS_FEDORA = "IS_FEDORA"
 # Jinga template for message to be displayed for either
 # response tag
 CONTENT = {
-    "IS_FEDORA": "This machine ({{hostname}}) runs {{product}}.",
+    ERROR_KEY_IS_FEDORA: "This machine ({{hostname}}) runs {{product}}.",
 }
 
 

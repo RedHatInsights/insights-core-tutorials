@@ -1,6 +1,8 @@
 from insights.core.plugins import make_fail, rule
-from insights_examples.parsers.secure_shell import SshDConfig
+from insights_examples.parsers.secure_shell import SSHDConfig
 from insights.parsers.installed_rpms import InstalledRpms
+from insights import add_filter
+from insights.specs import Specs
 
 from insights import run
 
@@ -55,7 +57,10 @@ def check_protocol(sshd_config, errors):
     return errors
 
 
-@rule(InstalledRpms, SshDConfig)
+add_filter(Specs.sshd_config, ["AuthenticationMethods", "LogLevel", "PermitRootLogin", "Protocol"])
+
+
+@rule(InstalledRpms, SSHDConfig)
 def report(installed_rpms, sshd_config):
     errors = {}
     errors = check_auth_method(sshd_config, errors)

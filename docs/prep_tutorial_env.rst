@@ -87,8 +87,10 @@ each of the components (parsers, combiners and rules) in.
 
 The following are the commands to create the ``mycomponents`` development environment::
 
+    (env)[userone@hostone insights-core-tutorials]$ mkdir ./mycomponents
     (env)[userone@hostone insights-core-tutorials]$ cd ./mycomponents
     (env)[userone@hostone mycomponents]$ touch __init__.py
+    (env)[userone@hostone mycomponents]$ mkdir -p ./parsers/tests
     (env)[userone@hostone mycomponents]$ touch ./parsers/__init__.py
     (env)[userone@hostone mycomponents]$ touch ./parsers/tests/__init__.py
     (env)[userone@hostone mycomponents]$ mkdir -p ./combiners/tests

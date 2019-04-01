@@ -1,9 +1,7 @@
 from insights_examples.rules import sshd_secure
-from insights_examples.parsers.secure_shell import LocalSpecs
-from insights.tests import InputData, archive_provider, context_wrap
+from insights.tests import InputData, archive_provider
 from insights.core.plugins import make_fail
 from insights.specs import Specs
-from insights_examples.parsers.secure_shell import SshDConfig
 
 OPENSSH_RPM = """
 openssh-6.6.1p1-31.el7.x86_64
@@ -31,29 +29,6 @@ DEFAULT_CONFIG = """
 """.strip()
 
 
-def test_check_auth_method():
-    """
-    This is an example of using unit tests with integration tests.
-    Although integration tests should also test this function,
-    if problems exist it may be easier to find if you write unit
-    tests like these.
-    """
-    errors = {}
-    sshd_config = SshDConfig(context_wrap(BAD_CONFIG))
-    errors = sshd_secure.check_auth_method(sshd_config, errors)
-    assert errors == {'AuthenticationMethods': 'badkey'}
-
-    errors = {}
-    sshd_config = SshDConfig(context_wrap(GOOD_CONFIG))
-    errors = sshd_secure.check_auth_method(sshd_config, errors)
-    assert errors == {}
-
-    errors = {}
-    sshd_config = SshDConfig(context_wrap(DEFAULT_CONFIG))
-    errors = sshd_secure.check_auth_method(sshd_config, errors)
-    assert errors == {'AuthenticationMethods': 'default'}
-
-
 @archive_provider(sshd_secure.report)
 def integration_tests():
     """
@@ -63,12 +38,12 @@ def integration_tests():
     test of the component chain.
     """
     input_data = InputData("GOOD_CONFIG")
-    input_data.add(LocalSpecs.sshd_config, GOOD_CONFIG)
+    input_data.add(Specs.sshd_config, GOOD_CONFIG)
     input_data.add(Specs.installed_rpms, OPENSSH_RPM)
     yield input_data, None
 
     input_data = InputData("BAD_CONFIG")
-    input_data.add(LocalSpecs.sshd_config, BAD_CONFIG)
+    input_data.add(Specs.sshd_config, BAD_CONFIG)
     input_data.add(Specs.installed_rpms, OPENSSH_RPM)
     errors = {
         'AuthenticationMethods': 'badkey',
@@ -82,7 +57,7 @@ def integration_tests():
     yield input_data, expected
 
     input_data = InputData("DEFAULT_CONFIG")
-    input_data.add(LocalSpecs.sshd_config, DEFAULT_CONFIG)
+    input_data.add(Specs.sshd_config, DEFAULT_CONFIG)
     input_data.add(Specs.installed_rpms, OPENSSH_RPM)
     errors = {
         'AuthenticationMethods': 'default',

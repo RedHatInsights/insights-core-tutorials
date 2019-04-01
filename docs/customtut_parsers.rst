@@ -74,7 +74,7 @@ Now edit the file and create the parser skeleton:
 
 
     @parser(Specs.sshd_config)
-    class SshDConfig(Parser):
+    class SSHDConfig(Parser):
 
         def parse_content(self, content):
             pass
@@ -93,7 +93,7 @@ as a skeleton that will aid in the parser development process:
 .. code-block:: python
     :linenos:
 
-    from mycomponents.parsers.secure_shell import SshDConfig
+    from mycomponents.parsers.secure_shell import SSHDConfig
 
 
     def test_sshd_config():
@@ -146,7 +146,7 @@ start by creating a test for the output that we want from our parser:
 .. code-block:: python
    :linenos:
 
-   from mycomponents.parsers.secure_shell import SshDConfig
+   from mycomponents.parsers.secure_shell import SSHDConfig
    from insights.tests import context_wrap
 
    SSHD_CONFIG_INPUT = """
@@ -166,7 +166,7 @@ start by creating a test for the output that we want from our parser:
 
 
    def test_sshd_config():
-       sshd_config = SshDConfig(context_wrap(SSHD_CONFIG_INPUT))
+       sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
        assert sshd_config is not None
        assert 'Port' in sshd_config
        assert 'PORT' in sshd_config
@@ -188,7 +188,7 @@ constructor:
    :linenos:
    :emphasize-lines: 2
 
-   from mycomponents.parsers.secure_shell import SshDConfig
+   from mycomponents.parsers.secure_shell import SSHDConfig
    from insights.tests import context_wrap
 
 Next we include the sample data that will be used for the test.  Use of the
@@ -224,7 +224,7 @@ parser class:
    :emphasize-lines: 2
 
    def test_sshd_config():
-       sshd_config = SshDConfig(context_wrap(SSHD_CONFIG_INPUT))
+       sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
 
 
 Finally we add our tests using the attributes that we want to be able to
@@ -299,7 +299,7 @@ Now we need to implement the parser that will satisfy our tests.
 
 
     @parser(LocalSpecs.sshd_config)
-    class SshDConfig(Parser):
+    class SSHDConfig(Parser):
 
         KeyValue = namedtuple('KeyValue', ['keyword', 'value', 'kw_lower'])
 
@@ -435,7 +435,7 @@ The following shows our completed parser including documentation.
     ===============================================
 
     The ``secure_shell`` module provides parsing for the ``sshd_config``
-    file.  The ``SshDConfig`` class implements the parsing and
+    file.  The ``SSHDConfig`` class implements the parsing and
     provides a ``list`` of all configuration lines present in
     the file.
 
@@ -485,7 +485,7 @@ The following shows our completed parser including documentation.
 
 
     @parser(LocalSpecs.sshd_config)
-    class SshDConfig(Parser):
+    class SSHDConfig(Parser):
         """Parsing for ``sshd_config`` file.
 
         Attributes:
@@ -538,7 +538,7 @@ with adding ``import doctest`` our original code:
 .. code-block:: python
     :linenos:
 
-    from mycomponents.parsers.secure_shell import SshDConfig
+    from mycomponents.parsers.secure_shell import SSHDConfig
     from insights.parsers import secure_shell
     from insights.tests import context_wrap
     import doctest
@@ -559,7 +559,7 @@ with adding ``import doctest`` our original code:
     """
 
     def test_sshd_config():
-        sshd_config = SshDConfig(context_wrap(SSHD_CONFIG_INPUT))
+        sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
         assert sshd_config is not None
         assert 'Port' in sshd_config
         assert 'PORT' in sshd_config
@@ -587,7 +587,7 @@ To test the documentation, we can then use ``doctest``:
         this setup in the example code.
         """
         env = {
-            'sshd_config': SshDConfig(context_wrap(SSHD_CONFIG_INPUT)),
+            'sshd_config': SSHDConfig(context_wrap(SSHD_CONFIG_INPUT)),
         }
         failed, total = doctest.testmod(secure_shell, globs=env)
         assert failed == 0
@@ -622,7 +622,7 @@ of those tests and only test the 'corner cases':
         Here we test any corner cases for behavior we expect to deal with
         in the parser but doesn't make a good example.
         """
-        config = SshDConfig(context_wrap(SSHD_DOCS_EXAMPLE))
+        config = SSHDConfig(context_wrap(SSHD_DOCS_EXAMPLE))
         assert config.last('AddressFamily') is None
         assert config['AddressFamily'] is None
         ports = [l for l in config if l.keyword == 'Port']
@@ -634,7 +634,7 @@ The final version of our test now looks like this:
 .. code-block:: python
     :linenos:
 
-    from mycomponets.parsers.secure_shell import SshDConfig
+    from mycomponets.parsers.secure_shell import SSHDConfig
     from insights.parsers import secure_shell
     from insights.tests import context_wrap
     import doctest
@@ -655,7 +655,7 @@ The final version of our test now looks like this:
     """
 
     def test_sshd_config():
-        sshd_config = SshDConfig(context_wrap(SSHD_CONFIG_INPUT))
+        sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
         assert sshd_config is not None
         assert 'Port' in sshd_config
         assert 'PORT' in sshd_config
@@ -678,7 +678,7 @@ The final version of our test now looks like this:
         this setup in the example code.
         """
         env = {
-            'sshd_config': SshDConfig(context_wrap(SSHD_CONFIG_INPUT)),
+            'sshd_config': SSHDConfig(context_wrap(SSHD_CONFIG_INPUT)),
         }
         failed, total = doctest.testmod(secure_shell, globs=env)
         assert failed == 0
@@ -695,7 +695,7 @@ The final version of our test now looks like this:
         Here we test any corner cases for behavior we expect to deal with
         in the parser but doesn't make a good example.
         """
-        config = SshDConfig(context_wrap(SSHD_DOCS_EXAMPLE))
+        config = SSHDConfig(context_wrap(SSHD_DOCS_EXAMPLE))
         assert config.last('AddressFamily') is None
         assert config['AddressFamily'] is None
         ports = [l for l in config if l.keyword == 'Port']
