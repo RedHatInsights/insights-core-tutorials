@@ -45,10 +45,10 @@ Creating the Initial Combiner Files
 
 First we need to create the combiner file.  Combiner files are implemented in
 modules. The module should be limited to one purpose.  In this case we are
-working with ``hostname`` data so we will create an ``hostname_uh`` module.
+working with ``hostname`` data so we will create a ``hostname_uh`` module.
 Also there is already a ``hostname`` combiner module so we want to avoid 
 confusion.  Create the module file ``mycomponents/combiners/hostname_uh.py`` in the
-``mycomponents/combiners directory``::
+``mycomponents/combiners`` directory::
 
     (env)[userone@hostone mycomponents]$ touch combiners/hostname_uh.py
 
@@ -92,8 +92,8 @@ as a skeleton that will aid in the combiner development process:
     def test_hostname_uh():
         pass
 
-Once you have created and saved both of these files, you can the test
-to make sure everything is setup correctly::
+Once you have created and saved both of these files, you can then test
+to make sure everything is set up correctly::
 
     (env)[userone@hostone insights-core-tutorials]$ pytest -k hostname_uh
     ======================= test session starts ==============================
@@ -113,7 +113,7 @@ test passed as expected.
 
 .. hint:: You may sometimes see a message that ``pytest`` cannot be found,
        or see some other related message that doesn't make sense. The first
-       think to check is that you have activated your virtual environment by
+       thing to check is that you have activated your virtual environment by
        executing the command ``source bin/activate`` from the root directory
        of your insights-core-tutorials project. You can deactivate the virtual
        environment by typing ``deactivate``. You can find more information about
@@ -143,29 +143,29 @@ test with the parser object so we'll use input data to feed the parsers and
 then use the parsers as input to our combiner tests.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
-   from mycomponents.combiners.hostname_uh import HostnameUH
-   from insights.parsers.hostname import Hostname
-   from insights.parsers.uname import Uname
-   from insights.tests import context_wrap
+    from mycomponents.combiners.hostname_uh import HostnameUH
+    from insights.parsers.hostname import Hostname
+    from insights.parsers.uname import Uname
+    from insights.tests import context_wrap
 
-   HOSTNAME = "hostone_h.example.com"
-   UNAME = "Linux hostone_u.example.com 3.10.0-693.21.1.el7.x86_64 #1 SMP Fri Feb 23 18:54:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux"
+    HOSTNAME = "hostone_h.example.com"
+    UNAME = "Linux hostone_u.example.com 3.10.0-693.21.1.el7.x86_64 #1 SMP Fri Feb 23 18:54:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux"
 
 
-   def test_hostname_uh():
-       hostname = Hostname(context_wrap(HOSTNAME))
-       uname = Uname(context_wrap(UNAME))
+    def test_hostname_uh():
+        hostname = Hostname(context_wrap(HOSTNAME))
+        uname = Uname(context_wrap(UNAME))
 
-       hostname_uh = HostnameUH(hostname, None)
-       assert hostname_uh.hostname == HOSTNAME
+        hostname_uh = HostnameUH(hostname, None)
+        assert hostname_uh.hostname == HOSTNAME
 
-       hostname_uh = HostnameUH(None, uname)
-       assert hostname_uh.hostname == "hostone_u.example.com"
+        hostname_uh = HostnameUH(None, uname)
+        assert hostname_uh.hostname == "hostone_u.example.com"
 
-       hostname_uh = HostnameUH(hostname, uname)
-       assert hostname_uh.hostname == HOSTNAME
+        hostname_uh = HostnameUH(hostname, uname)
+        assert hostname_uh.hostname == HOSTNAME
 
 
 First we added an import for the combiner object and the parser objects.  Next
@@ -173,7 +173,7 @@ we import a helper function ``context_wrap`` which we'll
 use to create our parser instance objects:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from insights.combiners.hostname_uh import HostnameUH
     from insights.parsers.hostname import Hostname
@@ -181,49 +181,49 @@ use to create our parser instance objects:
     from insights.tests import context_wrap
 
 Next we include the sample data that will be used for the test.  We will use
-data for input to the parsers so we need both sample outputs of the ``hostname``
+data for input to the parsers so we need sample outputs of both the ``hostname``
 command and the ``uname -a`` command:
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 6
+    :linenos:
+    :lineno-start: 6
 
-   HOSTNAME = "hostone_h.example.com"
-   UNAME = "Linux hostone_u.example.com 3.10.0-693.21.1.el7.x86_64 #1 SMP Fri Feb 23 18:54:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux"
+    HOSTNAME = "hostone_h.example.com"
+    UNAME = "Linux hostone_u.example.com 3.10.0-693.21.1.el7.x86_64 #1 SMP Fri Feb 23 18:54:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux"
 
 Next, to the body of the test, we add code to create instances of the
 necessary parser classes:
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 10
-   :emphasize-lines: 2,3
+    :linenos:
+    :lineno-start: 10
+    :emphasize-lines: 2,3
 
-   def test_hostname_uh():
-       hostname = Hostname(context_wrap(HOSTNAME))
-       uname = Uname(context_wrap(UNAME))
+    def test_hostname_uh():
+        hostname = Hostname(context_wrap(HOSTNAME))
+        uname = Uname(context_wrap(UNAME))
 
 Finally we add our tests using the attributes that we want to be able to
 access in our rules.  For our combiner we trust ``hostname`` more than
 ``uname`` so we give ``hostname`` priority by checking it first and then
-fall back to ``uname`` if hostname is not available.  If neither of these is
-available the combiner will not be called.  It is always guaranteed that our
+fall back to ``uname`` if ``hostname`` is not available.  If neither of these
+is available the combiner will not be called.  It is always guaranteed that our
 combiner will get at least one of the parsers when called.
 
 Now here are the tests:
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 14
+    :linenos:
+    :lineno-start: 14
 
-   hostname_uh = HostnameUH(hostname, None)
-   assert hostname_uh.hostname == HOSTNAME
+    hostname_uh = HostnameUH(hostname, None)
+    assert hostname_uh.hostname == HOSTNAME
 
-   hostname_uh = HostnameUH(None, uname)
-   assert hostname_uh.hostname == "hostone_u.example.com"
+    hostname_uh = HostnameUH(None, uname)
+    assert hostname_uh.hostname == "hostone_u.example.com"
 
-   hostname_uh = HostnameUH(hostname, uname)
-   assert hostname_uh.hostname == HOSTNAME
+    hostname_uh = HostnameUH(hostname, uname)
+    assert hostname_uh.hostname == HOSTNAME
 
 We use a different hostname in each parser so that we can confirm that the
 correct parser data is chosen.
@@ -249,21 +249,21 @@ are:
 Now we need to implement the combiner that will satisfy our tests.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
-   from insights.core.plugins import combiner
-   from insights.parsers.hostname import Hostname
-   from insights.parsers.uname import Uname
+    from insights.core.plugins import combiner
+    from insights.parsers.hostname import Hostname
+    from insights.parsers.uname import Uname
 
 
-   @combiner([Hostname, Uname])
-   class HostnameUH(object):
+    @combiner([Hostname, Uname])
+    class HostnameUH(object):
 
-       def __init__(self, hostname, uname):
-           if hostname:
-               self.hostname = hostname.fqdn
-           else:
-               self.hostname = uname.nodename
+        def __init__(self, hostname, uname):
+            if hostname:
+                self.hostname = hostname.fqdn
+            else:
+                self.hostname = uname.nodename
 
 We've replaced our original ``__init__`` to include the logic for our combiner.
 The ``Hostname`` parser is passed in as the ``hostname`` attribute, and if it
@@ -291,13 +291,13 @@ Combiner Documentation and Testing
 ----------------------------------
 
 The last step to complete implementation of our combiner is to create
-the documentation.  The guidelines and examples for combiner documentation is
+the documentation.  The guidelines and examples for combiner documentation are
 provided in the section
 `Documentation Guidelines`_
 and parallels the information
 provided in the instructions for :ref:`parser-documentation`.  Combiner
 testing parallels the information provided in the instructions for the
-:ref:`parser-testing`
+:ref:`parser-testing`.
 
 .. --------------------------------------------------------------------
 .. Put all of the references that are used throughout the document here
