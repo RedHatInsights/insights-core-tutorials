@@ -57,7 +57,7 @@ Creating the Initial Parser Files
 
 First we need to create the parser file.  Parser files are implemented in modules.
 The module should be limited to one type of application.  In this case we are
-working with the ``ssh`` application so we will create an ``secure_shell`` module.
+working with the ``ssh`` application so we will create a ``secure_shell`` module.
 Create the module file ``~/work/insights-core-tutorials/mycomponents/parsers/secure_shell.py`` in the parsers
 directory::
 
@@ -99,8 +99,8 @@ as a skeleton that will aid in the parser development process:
     def test_sshd_config():
         pass
 
-Once you have created and saved both of these files and we'll run the test
-to make sure everything is setup correctly::
+Once you have created and saved both of these files, we'll run the test
+to make sure everything is set up correctly::
 
     (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
     (env)[userone@hostone insights-core-tutorials]$ pytest -k secure_shell
@@ -117,7 +117,7 @@ to make sure everything is setup correctly::
 
 .. hint:: You may sometimes see a message that ``pytest`` cannot be found,
        or see some other related message that doesn't make sense. The first
-       think to check is that you have activated your virtual environment by
+       thing to check is that you have activated your virtual environment by
        executing the command ``source bin/activate`` from the root directory
        of your insights-core-tutorials project. You can deactivate the virtual
        environment by typing ``deactivate``. You can find more information
@@ -144,40 +144,40 @@ Referring back to our :ref:`sample SSHD input <sample-sshd-input>` we will
 start by creating a test for the output that we want from our parser:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
-   from mycomponents.parsers.secure_shell import SSHDConfig
-   from insights.tests import context_wrap
+    from mycomponents.parsers.secure_shell import SSHDConfig
+    from insights.tests import context_wrap
 
-   SSHD_CONFIG_INPUT = """
-   #	$OpenBSD: sshd_config,v 1.93 2014/01/10 05:59:19 djm Exp $
+    SSHD_CONFIG_INPUT = """
+    #	$OpenBSD: sshd_config,v 1.93 2014/01/10 05:59:19 djm Exp $
 
-   Port 22
-   #AddressFamily any
-   ListenAddress 10.110.0.1
-   Port 22
-   ListenAddress 10.110.1.1
-   #ListenAddress ::
+    Port 22
+    #AddressFamily any
+    ListenAddress 10.110.0.1
+    Port 22
+    ListenAddress 10.110.1.1
+    #ListenAddress ::
 
-   # The default requires explicit activation of protocol 1
-   #Protocol 2
-   Protocol 1
-   """
+    # The default requires explicit activation of protocol 1
+    #Protocol 2
+    Protocol 1
+    """
 
 
-   def test_sshd_config():
-       sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
-       assert sshd_config is not None
-       assert 'Port' in sshd_config
-       assert 'PORT' in sshd_config
-       assert sshd_config['port'] == ['22', '22']
-       assert 'ListenAddress' in sshd_config
-       assert sshd_config['ListenAddress'] == ['10.110.0.1', '10.110.1.1']
-       assert sshd_config['Protocol'] == ['1']
-       assert 'AddressFamily' not in sshd_config
-       ports = [l for l in sshd_config if l.keyword == 'Port']
-       assert len(ports) == 2
-       assert ports[0].value == '22'
+    def test_sshd_config():
+        sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
+        assert sshd_config is not None
+        assert 'Port' in sshd_config
+        assert 'PORT' in sshd_config
+        assert sshd_config['port'] == ['22', '22']
+        assert 'ListenAddress' in sshd_config
+        assert sshd_config['ListenAddress'] == ['10.110.0.1', '10.110.1.1']
+        assert sshd_config['Protocol'] == ['1']
+        assert 'AddressFamily' not in sshd_config
+        ports = [l for l in sshd_config if l.keyword == 'Port']
+        assert len(ports) == 2
+        assert ports[0].value == '22'
 
 
 First we added an import for the helper function ``context_wrap`` which we'll
@@ -185,50 +185,50 @@ use to put our input data into a ``Context`` object to pass to our class
 constructor:
 
 .. code-block:: python
-   :linenos:
-   :emphasize-lines: 2
+    :linenos:
+    :emphasize-lines: 2
 
-   from mycomponents.parsers.secure_shell import SSHDConfig
-   from insights.tests import context_wrap
+    from mycomponents.parsers.secure_shell import SSHDConfig
+    from insights.tests import context_wrap
 
 Next we include the sample data that will be used for the test.  Use of the
 ``strip()`` function ensures that all white space at the beginning and end
 of the data are removed:
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 4
+    :linenos:
+    :lineno-start: 4
 
-   SSHD_CONFIG_INPUT = """
-   #	$OpenBSD: sshd_config,v 1.93 2014/01/10 05:59:19 djm Exp $
+    SSHD_CONFIG_INPUT = """
+    #	$OpenBSD: sshd_config,v 1.93 2014/01/10 05:59:19 djm Exp $
 
-   Port 22
-   #AddressFamily any
-   ListenAddress 10.110.0.1
-   Port 22
-   ListenAddress 10.110.1.1
-   #ListenAddress ::
+    Port 22
+    #AddressFamily any
+    ListenAddress 10.110.0.1
+    Port 22
+    ListenAddress 10.110.1.1
+    #ListenAddress ::
 
-   # The default requires explicit activation of protocol 1
-   #Protocol 2
-   Protocol 1
-   """
+    # The default requires explicit activation of protocol 1
+    #Protocol 2
+    Protocol 1
+    """
 
 Next, to the body of the test, we add code to create an instance of our
 parser class:
 
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 31
-   :emphasize-lines: 2
+    :linenos:
+    :lineno-start: 31
+    :emphasize-lines: 2
 
-   def test_sshd_config():
-       sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
+    def test_sshd_config():
+        sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
 
 
 Finally we add our tests using the attributes that we want to be able to
-access in our rules.  First a assumptions about the data:
+access in our rules.  First a few assumptions about the data:
 
 #. some keywords may be present more than once in the config file
 #. we want to access keywords in a case insensitive way
@@ -239,20 +239,20 @@ access in our rules.  First a assumptions about the data:
 Now here are the tests:
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 33
+    :linenos:
+    :lineno-start: 33
 
-       assert sshd_config is not None
-       assert 'Port' in sshd_config
-       assert 'PORT' in sshd_config
-       assert sshd_config['port'] == ['22', '22']
-       assert 'ListenAddress' in sshd_config
-       assert sshd_config['ListenAddress'] == ['10.110.0.1', '10.110.0.1']
-       assert sshd_config['Protocol'] == ['1']
-       assert 'AddressFamily' not in sshd_config
-       ports = [l for l in sshd_config if l.keyword == 'Port']
-       assert len(ports) == 2
-       assert ports[0].value == '22'
+        assert sshd_config is not None
+        assert 'Port' in sshd_config
+        assert 'PORT' in sshd_config
+        assert sshd_config['port'] == ['22', '22']
+        assert 'ListenAddress' in sshd_config
+        assert sshd_config['ListenAddress'] == ['10.110.0.1', '10.110.0.1']
+        assert sshd_config['Protocol'] == ['1']
+        assert 'AddressFamily' not in sshd_config
+        ports = [l for l in sshd_config if l.keyword == 'Port']
+        assert len(ports) == 2
+        assert ports[0].value == '22'
 
 Our tests assume that we want to know whether a particular keyword is present,
 regardless of character case used in the keyword, and we want to know the
@@ -283,7 +283,7 @@ or types.  Some general recommendations for parser class implementation are:
 Now we need to implement the parser that will satisfy our tests.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from collections import namedtuple
     from insights import Parser, parser, get_active_lines
@@ -322,15 +322,15 @@ Now we need to implement the parser that will satisfy our tests.
             if kw in self.keywords:
                 return [kv.value for kv in self.lines if kv.kw_lower == kw]
 
-We added an imports to our skeleton to utilize ``get_active_lines()`` and
+We added an import to our skeleton to utilize ``get_active_lines()`` and
 ``namedtuples``. ``get_active_lines()`` is one of the many helper methods
 that you can find in ``insights/parsers/__init__.py``, ``insights/core/__init__.py``,
 and ``insights/util/__init__.py``.  ``get_active_lines()`` will remove all
-blank lines and comments from the input which simplifies your parsers
+blank lines and comments from the input which simplifies your parser's
 parsing logic.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from collections import namedtuple
     from insights import Parser, parser, get_active_lines
@@ -339,13 +339,13 @@ parsing logic.
 
 Since the ``sshd_config`` spec requires root access to access the
 ``/etc/ssh/sshd_config`` file we created a local ``SpecSet`` class called
-``LocalSpecs` that will contain a local ``sshd_config`` spec that uses a local
+``LocalSpecs`` that will contain a local ``sshd_config`` spec that uses a local
 ``sshd_config`` file that does not require root access to read.
 
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 6
+    :linenos:
+    :lineno-start: 6
 
     class LocalSpecs(SpecSet):
         """ Datasources for collection from local host """
@@ -355,7 +355,7 @@ Since the ``sshd_config`` spec requires root access to access the
 
 To get the ``ssh_config`` file needed for the local sshd_config spec you can
 copy it from ``~/work/insights-core-tutorials/insights_examples/parsers/sshd_config`` to the
-``~/work/insights-core-tutorials/mycomponents/parsers`` directory as shown below.
+``~/work/insights-core-tutorials/mycomponents/parsers`` directory as shown below::
 
 
     (env)[userone@hostone insights-core-tutorials]$ cp ./insights_examples/parsers/sshd_config ./mycomponents/parsers/
@@ -366,21 +366,21 @@ are storing in our parser by creating a namedtuple with the named attributes
 version of the *keyword*.
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 15
+    :linenos:
+    :lineno-start: 15
 
         KeyValue = namedtuple('KeyValue', ['keyword', 'value', 'kw_lower'])
 
 In this particular parser we have chosen to store all lines (``self.lines``)
-as ``KeyValue`` named tuples since we don't know what future rules might.
+as ``KeyValue`` named tuples since we don't know what future rules might need.
 We are also storing the ``set`` of lowercase keywords (``self.keywords``)
 to make it easier to
 determine if a keyword is present in the data.  The values are left
 unparsed as we don't know how a rule might need to evaluate them.
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 17
+    :linenos:
+    :lineno-start: 17
 
         def parse_content(self, content):
             self.lines = []
@@ -391,12 +391,12 @@ unparsed as we don't know how a rule might need to evaluate them.
 
 Finally we implement some "dunder" methods to simplify use of the class.
 ``__contains__`` enables the ``in`` operator for keyword checking.
-``__iter__`` enables iteration over the contents of ``self.lines``. And
+``__iter__`` enables iteration over the contents of ``self.lines``.  And
 ``__getitem__`` enables access to all values of a keyword.
 
 .. code-block:: python
-   :linenos:
-   :lineno-start: 24
+    :linenos:
+    :lineno-start: 24
 
         def __contains__(self, keyword):
             return keyword.lower() in self.keywords
@@ -422,13 +422,13 @@ Parser Documentation
 --------------------
 
 The last step to complete implementation of our parser is to create
-the documentation.  The guidelines and examples for parser documentation is
+the documentation.  The guidelines and examples for parser documentation are
 provided in the section `Documentation Guidelines`_.
 
 The following shows our completed parser including documentation.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     """
     secure_shell - Files for configuration of `ssh`
@@ -529,7 +529,7 @@ Parser Testing
 --------------
 
 It is important that we ensure our tests will run successfully after any
-change to our parser. We are able to do that in two ways, first by using
+change to our parser. We are able to do that in two ways: first by using
 ``doctest`` to test our *Examples* section of the ``secure_shell`` module, and
 second
 by writing tests that can be tested automatically using ``pytest``.  Starting
@@ -539,7 +539,7 @@ with adding ``import doctest`` our original code:
     :linenos:
 
     from mycomponents.parsers.secure_shell import SSHDConfig
-    from insights.parsers import secure_shell
+    from mycomponents.parsers import secure_shell
     from insights.tests import context_wrap
     import doctest
 
@@ -592,7 +592,7 @@ To test the documentation, we can then use ``doctest``:
         failed, total = doctest.testmod(secure_shell, globs=env)
         assert failed == 0
 
-The environment setup allows us to 'hide' the set-up of the environment that
+The environment setup allows us to "hide" the setup of the environment that's
 normally provided to the rule, which is the context in which the example
 code is written.  There's no easy way to show the declaration of the rule,
 nor the parameter that is created with the parser object, but it's good
@@ -606,7 +606,7 @@ what was given.
 
 Because this code essentially duplicates many of the things previously
 tested explicitly in the ``test_sshd_config`` function, we can remove some
-of those tests and only test the 'corner cases':
+of those tests and only test the "corner cases":
 
 .. code-block:: python
     :linenos:
@@ -634,8 +634,8 @@ The final version of our test now looks like this:
 .. code-block:: python
     :linenos:
 
-    from mycomponets.parsers.secure_shell import SSHDConfig
-    from insights.parsers import secure_shell
+    from mycomponents.parsers.secure_shell import SSHDConfig
+    from mycomponents.parsers import secure_shell
     from insights.tests import context_wrap
     import doctest
 
