@@ -12,19 +12,19 @@ The most effective way to get started in developing a rule is first to identify 
 problem you want to address.
 
 For the purposes of this tutorial we'll look at a very simple scenario. Sometimes when
-researching an issue one of the things that we might need to know is which Red Hat OS the
-host is running. For simplicity sake, in this example we will concentrate only on
-determining if the red hat release is ``Fedora``.
+researching an issue we might need to know which Red Hat OS the host is running. For
+simplicity's sake, in this example we will concentrate only on determining if the Red
+Hat release is ``Fedora``.
 
-For this case there is one thing we need to check:
+For this case there is only one thing we need to check:
 
-1. Is the Red Hat release ``Fedora``:
+1. Is the Red Hat release ``Fedora``?
 
 
 Identify Parsers
 ================
 
-- We can check Red Hat Release using the ``RedhatRelease`` parser.
+- We can check Red Hat release using the ``RedhatRelease`` parser.
 
 Develop Plugin
 ==============
@@ -32,7 +32,7 @@ Develop Plugin
 Now that we have identified the required parsers, let's get started on
 developing our plugin.
 
-Create a file called ``is_fedora.py`` in a Python package called ``tutorial``.
+Create a file called ``is_fedora.py`` in the ``mycomponents/rules`` directory.
 
 .. code-block:: shell
 
@@ -43,7 +43,7 @@ Open ``is_fedora.py`` in your text editor of choice and start by stubbing out
 the rule function and imports.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from insights.parsers.redhat_release import RedhatRelease
     from insights import rule, make_fail, make_pass
@@ -55,7 +55,7 @@ the rule function and imports.
 Let's go over each line and describe the details:
 
 .. code-block:: python
-   :lineno-start: 1
+    :lineno-start: 1
 
     from insights.parsers.redhat_release import RedhatRelease
 
@@ -64,7 +64,7 @@ objects directly to the ``@rule`` decorator to declare them as dependencies for
 your rule.
 
 .. code-block:: python
-   :lineno-start: 2
+    :lineno-start: 2
 
     from insights import rule, make_fail, make_pass
 
@@ -76,7 +76,7 @@ Combiners have a set of optional dependencies that are specified via the
 the `return value of a rule`_ function.
 
 .. code-block:: python
-   :lineno-start: 6
+    :lineno-start: 6
 
     ERROR_KEY_IS_FEDORA = "IS_FEDORA"
 
@@ -84,12 +84,12 @@ the `return value of a rule`_ function.
         ERROR_KEY_IS_FEDORA: "This machine ({{hostname}}) runs {{product}}.",
     }
 
-Here we defined the ``Jinga`` template for message to be displayed for the
-response tag for either pass or fail
+Here we defined the ``Jinja`` template for the message to be displayed for the
+response tag for either pass or fail.
 
 
 .. code-block:: python
-   :lineno-start: 12
+    :lineno-start: 12
 
     @rule(RedhatRelease)
 
@@ -99,18 +99,18 @@ Here we are specifying that this rule requires the output of the
 Now let's add the rule logic
 
 .. code-block:: python
-   :lineno-start: 12
+    :lineno-start: 12
 
     @rule(RedhatRelease, content=CONTENT)
     def report(rhrel):
         """Fires if the machine is running Fedora."""
 
-        if "Fedora" in rel.product:
-            return make_pass(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
+        if "Fedora" in rhrel.product:
+            return make_pass(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rhrel.product)
         else:
-            return make_fail(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
+            return make_fail(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rhrel.product)
 
-Now lets look at what the rule is doing.
+Now let's look at what the rule is doing.
 
 The ``RedhatRelease`` parser parses content from the ``/etc/redhat-release`` file on the
 host it is running on and returns an object containing the Red Hat OS information for the
@@ -120,12 +120,12 @@ host.
    :lineno-start: 16
 
         if "Fedora" in rhrel.product:
-            return make_pass(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
+            return make_pass(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rhrel.product)
         else:
-            return make_fail(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rel.product)
+            return make_fail(ERROR_KEY_IS_FEDORA, hostname=hostname.hostname, product=rhrel.product)
 
-Here we check to see if the value ``Fedora`` is in the "product" property of the
-"rhrel" object. If true then the rule returns a response telling us that the host
+Here we check to see if the value ``Fedora`` is in the ``product`` property of the
+``rhrel`` object. If true then the rule returns a response telling us that the host
 is indeed running ``Fedora``, along with the product information returned by the
 parser. If false then the rule returns a response telling us that the host is
 not running ``Fedora``, along with the product information returned by the parser.
@@ -146,7 +146,7 @@ Open ``test_is_fedora.py`` in your text editor of choice and start by stubbing
 out a test and the required imports.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from .. import is_fedora
     from insights.specs import Specs
@@ -183,7 +183,7 @@ Next for each test we need to build ``InputData`` objects and populate it with t
 and build the expected return. Then finally we need to yield the pair.
 
 .. code-block:: python
-   :lineno-start: 16
+    :lineno-start: 16
 
     input_data = InputData("test_fedora")
     input_data.add(Specs.redhat_release, FEDORA)
