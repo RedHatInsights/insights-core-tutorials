@@ -1,7 +1,7 @@
-from .. import bash_bug
 from insights.specs import Specs
 from insights.tests import InputData, archive_provider
 from insights.core.plugins import make_pass, make_fail
+from insights_examples.rules import bash_bug
 
 BUG_VERSION = "bash-4.4.14-1.any"
 FIX_VERSION = "bash-4.4.18-1.any"

@@ -37,7 +37,7 @@ linting = set([
 if __name__ == "__main__":
     setup(
         name="insights-core-tutorials",
-        version="0.0.1",
+        version="0.0.2",
         description="Insights Core Rule, Parser and Combiner Tutorials",
         author="Red Hat, Inc.",
         packages=find_packages(),

@@ -8,7 +8,7 @@ In the Map-Reduce model, Parsers are responsible for mapping the data from a
 datasource and Combiners are responsible for reducing the data from multiple
 Parsers into a reduced dataset.  Combiners help to consolidate information from
 different data sources, hide differences between the same data source across
-operating system versions, and make Parser output more rule friendly. 
+operating system versions, and make Parser output more rule friendly.
 
 For example, the *hostname* of a system may be obtained from the ``Hostname``,
 ``Facter``, and ``SystemID`` parsers.  A rule could rely on all three parsers
@@ -46,7 +46,7 @@ Creating the Initial Combiner Files
 First we need to create the combiner file.  Combiner files are implemented in
 modules. The module should be limited to one purpose.  In this case we are
 working with ``hostname`` data so we will create an ``hostname_uh`` module.
-Also there is already a ``hostname`` combiner module so we want to avoid 
+Also there is already a ``hostname`` combiner module so we want to avoid
 confusion.  Create the module file ``mycomponents/combiners/hostname_uh.py`` in the
 ``mycomponents/combiners directory``::
 
@@ -80,7 +80,7 @@ We also need to pass the parser instance objects as arguments to the ``__init__`
 method of our combiner.  If either of these objects is not present then its
 value with be ``None``.
 
-Next we'll create the combiner test file ``mycomponents/combiners/tests/test_hostname_uh.py``
+Next we'll create the combiner test file ``mycomponents/tests/combiners/test_hostname_uh.py``
 as a skeleton that will aid in the combiner development process:
 
 .. code-block:: python
@@ -102,8 +102,8 @@ to make sure everything is setup correctly::
 
        collected 16 items / 14 deselected
 
-       insights_examples/combiners/tests/test_hostname_uh.py .                                                                                                                                          [ 50%]
-       mycomponents/combiners/tests/test_hostname_uh.py .
+       insights_examples/tests/combiners/test_hostname_uh.py .                                                                                                                                          [ 50%]
+       mycomponents/tests/combiners/test_hostname_uh.py .
 
     ============ 2 passed, 14 deselected in .27 seconds ====================
 
@@ -274,7 +274,7 @@ passed in the ``uname`` attribute.
 
 Now save this file and run the tests again to confirm that we have successfully
 written our combiner to pass all tests::
-    
+
     (env)[userone@hostone insights-core-tutorials]$ pytest -k hostname_uh
     ======================= test session starts ==============================
        platform linux -- Python 3.6.6, pytest-3.0.6, py-1.7.0, pluggy-0.4.0
@@ -282,8 +282,8 @@ written our combiner to pass all tests::
        plugins: cov-2.6.1
        collected 6 items / 5 deselected
 
-       insights_examples/combiners/tests/test_hostname_uh.py .                                                                                                                                          [ 50%]
-       mycomponents/combiners/tests/test_hostname_uh.py .
+       insights_examples/tests/combiners/test_hostname_uh.py .                                                                                                                                          [ 50%]
+       mycomponents/tests/combiners/test_hostname_uh.py .
 
     ============ 2 passed, 14 deselected in 0.35 seconds ====================
 
@@ -304,10 +304,7 @@ testing parallels the information provided in the instructions for the
 .. Links:
 
 .. _Red Hat Customer Portal: https://access.redhat.com
-.. _Red Hat Insights Portal: https://access.redhat.com/products/red-hat-insights.
+.. _Red Hat Insights Portal: https://access.redhat.com/products/red-hat-insights
 .. _insights-core Repository: https://github.com/RedHatInsights/insights-core
 .. _Mozilla OpenSSH Security Guidelines: https://wiki.mozilla.org/Security/Guidelines/OpenSSH
 .. _Documentation Guidelines:  https://insights-core.readthedocs.io/en/latest/docs_guidelines.html
-
-
-

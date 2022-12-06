@@ -1,8 +1,7 @@
-from insights.parsers.redhat_release import RedhatRelease
-from insights.core.plugins import make_fail, make_pass, rule
-from insights_examples.combiners.hostname_uh import HostnameUH
-
 from insights import run
+from insights.core.plugins import make_fail, make_pass, rule
+from insights.parsers.redhat_release import RedhatRelease
+from insights_examples.combiners.hostname_uh import HostnameUH
 
 ERROR_KEY_IS_FEDORA = "IS_FEDORA"
 

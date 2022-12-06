@@ -1,11 +1,11 @@
-from insights.core.plugins import make_fail, rule
-from insights_examples.parsers.secure_shell import SSHDConfig
+from insights import add_filter, run, SkipComponent
+from insights.core.plugins import make_fail, rule, condition
 from insights.parsers.installed_rpms import InstalledRpms
-from insights import add_filter
 from insights.specs import Specs
+from insights_examples.parsers.secure_shell import SSHDConfig
 
-from insights import run
 
+add_filter(Specs.sshd_config, ["AuthenticationMethods", "LogLevel", "PermitRootLogin", "Protocol"])
 ERROR_KEY = "SSHD_SECURE"
 
 # Jinja2 template displayed for make_response results
@@ -18,7 +18,6 @@ OPEN_SSH_PACKAGE: {{openssh}}""".strip()
 
 
 def check_auth_method(sshd_config, errors):
-
     auth_method = sshd_config.last('AuthenticationMethods')
     if auth_method:
         if auth_method.lower() != 'publickey':
@@ -57,11 +56,8 @@ def check_protocol(sshd_config, errors):
     return errors
 
 
-add_filter(Specs.sshd_config, ["AuthenticationMethods", "LogLevel", "PermitRootLogin", "Protocol"])
-
-
-@rule(InstalledRpms, SSHDConfig)
-def report(installed_rpms, sshd_config):
+@condition(SSHDConfig)
+def check_sshd_config(sshd_config):
     errors = {}
     errors = check_auth_method(sshd_config, errors)
     errors = check_log_level(sshd_config, errors)
@@ -69,8 +65,22 @@ def report(installed_rpms, sshd_config):
     errors = check_protocol(sshd_config, errors)
 
     if errors:
-        openssh_version = installed_rpms.get_max('openssh')
-        return make_fail(ERROR_KEY, errors=errors, openssh=openssh_version.package)
+        return errors
+
+    raise SkipComponent
+
+
+@condition(InstalledRpms)
+def affected_package(rpms):
+    if 'openssh' in rpms:
+        return rpms.get_max('openssh').package
+
+    raise SkipComponent
+
+
+@rule(check_sshd_config, affected_package)
+def report(conf_errors, pkg):
+    return make_fail(ERROR_KEY, errors=conf_errors, openssh=pkg)
 
 
 if __name__ == "__main__":
