@@ -3,7 +3,7 @@ secure_shell - Files for configuration of `ssh`
 ===============================================
 
 The ``secure_shell`` module provides parsing for the ``sshd_config``
-file.  The ``SshDConfig`` class implements the parsing and
+file.  The ``SSHDConfig`` class implements the parsing and
 provides a ``list`` of all configuration lines present in
 the file.
 
@@ -41,6 +41,7 @@ Examples:
 from collections import namedtuple
 from insights import Parser, parser, get_active_lines
 from insights.core.spec_factory import SpecSet, simple_file
+from insights.specs import Specs
 import os
 
 
@@ -51,8 +52,8 @@ class LocalSpecs(SpecSet):
     sshd_config = simple_file(conf_file)
 
 
-@parser(LocalSpecs.sshd_config)
-class SshDConfig(Parser):
+@parser(Specs.sshd_config)
+class SSHDConfig(Parser):
     """Parsing for ``sshd_config`` file.
 
     Attributes:

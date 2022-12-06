@@ -1,4 +1,4 @@
-from insights_examples.parsers.secure_shell import SshDConfig
+from insights_examples.parsers.secure_shell import SSHDConfig
 from insights_examples.parsers import secure_shell
 from insights.tests import context_wrap
 import doctest
@@ -20,7 +20,7 @@ Protocol 1
 
 
 def test_sshd_config():
-    sshd_config = SshDConfig(context_wrap(SSHD_CONFIG_INPUT))
+    sshd_config = SSHDConfig(context_wrap(SSHD_CONFIG_INPUT))
     assert sshd_config is not None
     assert 'Port' in sshd_config
     assert 'PORT' in sshd_config
@@ -43,7 +43,7 @@ def test_sshd_documentation():
     this setup in the example code.
     """
     env = {
-        'sshd_config': SshDConfig(context_wrap(SSHD_CONFIG_INPUT)),
+        'sshd_config': SSHDConfig(context_wrap(SSHD_CONFIG_INPUT)),
     }
     failed, total = doctest.testmod(secure_shell, globs=env)
     assert failed == 0
@@ -60,7 +60,7 @@ def test_sshd_corner_cases():
     Here we test any corner cases for behaviour we expect to deal with
     in the parser but doesn't make a good example.
     """
-    config = SshDConfig(context_wrap(SSHD_DOCS_EXAMPLE))
+    config = SSHDConfig(context_wrap(SSHD_DOCS_EXAMPLE))
     assert config.last('AddressFamily') is None
     assert config['AddressFamily'] is None
     ports = [l for l in config if l.keyword == 'Port']
