@@ -6,7 +6,7 @@ from insights import run
 
 ERROR_KEY_IS_FEDORA = "IS_FEDORA"
 
-# Jinga template for message to be displayed for either
+# Jinja2 template for message to be displayed for either
 # response tag
 CONTENT = {
     ERROR_KEY_IS_FEDORA: "This machine ({{hostname}}) runs {{product}}.",

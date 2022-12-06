@@ -84,8 +84,8 @@ the `return value of a rule`_ function.
         ERROR_KEY_IS_FEDORA: "This machine ({{hostname}}) runs {{product}}.",
     }
 
-Here we defined the ``Jinga`` template for message to be displayed for the
-response tag for either pass or fail
+Here we define the ``Jinja2`` template for message to be displayed for either
+response tag
 
 
 .. code-block:: python

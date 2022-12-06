@@ -8,7 +8,7 @@ from insights import run
 
 ERROR_KEY = "SSHD_SECURE"
 
-# Jinga template displayed for make_response results
+# Jinja2 template displayed for make_response results
 CONTENT = ERROR_KEY + """
 :{
                 {% for key, value in errors.items() -%}
