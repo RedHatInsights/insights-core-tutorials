@@ -1,6 +1,6 @@
 """
 Bash Bug
-============
+========
 
 This is a simple rule example that simulates a bash bug based on version of the
 the bash rpm installed. This example can be run against the local host
@@ -33,6 +33,7 @@ def check_bash_bug(rpms):
     else:
         not_found = "Bash bug not found: "
         return make_pass(ERROR_KEY_BASH_BUG, bash=current_version.nvr, found=not_found)
+
 
 if __name__ == "__main__":
     from insights import run

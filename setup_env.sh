@@ -42,7 +42,7 @@ setup_environment(){
     echo '*** Setting up the development environment ***'
 
     if ! command -v ./bin/python3.6 &>/dev/null; then
-           virtualenv -p python3.6 .
+        python3 -m venv .
     else
         echo virtualenv already set up.
     fi
@@ -63,16 +63,16 @@ create_mycomponents_dirs(){
     echo ''
     echo '*** Creating the mycomponents directories ***'
 
-    mkdir -p ./mycomponents/parsers/tests
+    mkdir -p ./mycomponents/tests/parsers
     touch ./mycomponents/__init__.py
     touch ./mycomponents/parsers/__init__.py
-    touch ./mycomponents/parsers/tests/__init__.py
-    mkdir -p ./mycomponents/combiners/tests
+    touch ./mycomponents/tests/parsers/__init__.py
+    mkdir -p ./mycomponents/tests/combiners
     touch ./mycomponents/combiners/__init__.py
-    touch ./mycomponents/combiners/tests/__init__.py
-    mkdir -p ./mycomponents/rules/tests
+    touch ./mycomponents/tests/combiners/__init__.py
+    mkdir -p ./mycomponents/tests/rules
     touch ./mycomponents/rules/__init__.py
-    touch ./mycomponents/rules/tests/__init__.py
+    touch ./mycomponents/tests/rules/__init__.py
 }
 
 # Run pytest
@@ -89,4 +89,3 @@ is_python36
 setup_environment
 create_mycomponents_dirs
 run_pytest
-

@@ -1,10 +1,9 @@
-from insights.core.plugins import make_fail, rule
-from insights_examples.parsers.secure_shell import SSHDConfig
-from insights.parsers.installed_rpms import InstalledRpms
 from insights import add_filter
-from insights.specs import Specs
-
 from insights import run
+from insights.core.plugins import make_fail, rule
+from insights.parsers.installed_rpms import InstalledRpms
+from insights.specs import Specs
+from insights_examples.parsers.secure_shell import SSHDConfig
 
 ERROR_KEY = "SSHD_SECURE"
 

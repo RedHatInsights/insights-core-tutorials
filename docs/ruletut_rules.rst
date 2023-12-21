@@ -138,9 +138,9 @@ Start out by creating a ``test_is_fedora.py`` module in a ``tests`` package.
 
 .. code-block:: shell
 
-    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials/rules/tests
-    (env)[userone@hostone tests]$ touch __init__.py
-    (env)[userone@hostone tests]$ touch test_is_fedora.py
+    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials/tests/rules
+    (env)[userone@hostone rules]$ touch __init__.py
+    (env)[userone@hostone rules]$ touch test_is_fedora.py
 
 Open ``test_is_fedora.py`` in your text editor of choice and start by stubbing
 out a test and the required imports.
@@ -234,4 +234,3 @@ Now for the entire test:
         yield input_data, expected
 
 .. _return value of a rule:  https://insights-core.readthedocs.io/en/latest/api.html#rule-output
-

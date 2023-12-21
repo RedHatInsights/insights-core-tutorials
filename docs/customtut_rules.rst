@@ -5,10 +5,9 @@ Rule Using Custom Parser
 ########################
 
 
-
-************************
+********
 Overview
-************************
+********
 
 The purpose of a rule is to evaluate various facts and determine one or more
 results about a system.  For our example rule we are interested in knowing
@@ -122,7 +121,7 @@ Optional      ``optional=[IPTables, IpAddr]``
 The decorator for the rule and the rule signature will look like this:
 
 .. code-block:: python
-    
+ 
     @rule(SSHDConfig, InstalledRpms, [ChkConfig, UnitFiles], optional=[IPTables, IpAddr])
     def report(sshd_config, installed_rpms, chk_config, unit_files, ip_tables, ip_addr):
         # sshd_config and installed_rpms will always be present
@@ -585,15 +584,15 @@ We execute these tests by moving to the root directory of our rules
 project, ensuring that our virtual environment is active, and running
 ``pytest``::
 
-    (env)[userone@hostone mycomponents]$ pytest -k mycomponents/rules
+    (env)[userone@hostone mycomponents]$ pytest -k rules
     ====================== test session starts =============================================
     platform linux -- Python 3.6.6, pytest-4.0.2, py-1.7.0, pluggy-0.8.0
     rootdir: /home/userone/work/insights-core-tutorials, inifile: setup.cfg
     plugins: cov-2.4.0
-    collected 15 items / 9 deslected
+    collected 22 items / 8 deselected / 14 selected
 
-    mycomponents/rules/tests/integration.py .....                                                                                                                                                    [ 83%]
-    =================== 6 passed, 9 deselected in 0.30 seconds =============================
+    mycomponents/tests/integration.py .....                                                                                                                                                    [ 83%]
+    =================== 14 passed, 8 deselected in 0.30 seconds ============================
 
 You may also want to run the rule using ``insights-run``.
 This will give you a better idea of what the output would be from the rule.

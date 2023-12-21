@@ -1,7 +1,7 @@
 Tutorial - Rule Development
 ====================================================
 
-In this tutorial we'll walk through authoring a new insights-core rule. 
+In this tutorial we'll walk through authoring a new insights-core rule.
 
 There are three primary phases to developing a rule:
 
@@ -14,5 +14,5 @@ We'll cover each step in detail in the sections ahead, so let's get started!
 .. toctree::
     :hidden:
 
-    ruletut_rule
-    customtut_rule
+    ruletut_rules
+    customtut_rules

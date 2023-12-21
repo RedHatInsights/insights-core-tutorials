@@ -6,7 +6,7 @@ Preparing Your Development Environment
 Begin Setup
 -----------
 
-First you need to ensure you have the ``git`` and ``gcc`` tools available. 
+First you need to ensure you have the ``git`` and ``gcc`` tools available.
 On Red Hat Enterprise Linux you can do this with the command, as root: ``yum install git gcc``.
 
 Now create your own fork of the insights-core-tutorials project. Do this by
@@ -26,7 +26,7 @@ download the repo.
     ``git clone`` command below instead of the URL ``git@github...``.
 
 Once you have copied this link then go to a terminal in your working directory
-and use the ``git`` command to clone the repository.  In this tutorial we will be using 
+and use the ``git`` command to clone the repository.  In this tutorial we will be using
 ``work`` as the directory that will contain the *insights-core-tutorials* project.
 If you choose to use a different root directory you will need to substitute ``work``
 with your chosen root directory when referenced in the tutorial. So for the purposes of
@@ -67,17 +67,17 @@ can follow these steps to create a virtual environment and set it up for develop
     Installing setuptools, pip, wheel...done.
 
     New python executable in ./bin/python
-    Installing Setuptools..................................................done.
+    Installing Setuptools.............................................done.
     Installing Pip....................................................done.
-    
+
 Setup your environment to use the new virtualenv you just created, and upgrade
 ``pip`` to the latest version::
-    
+
     [userone@hostone insights-core-tutorials]$ source ./bin/activate
     (env)[userone@hostone insights-core-tutorials]$ pip install --upgrade pip
-    
+
 Now install all of the required packages for *insights-core-tutorials* development::
-    
+
     (env)[userone@hostone insights-core-tutorials]$ pip install -e .[develop]
 
 Next you will need to create ``mycomponents`` directory and directories to develop
@@ -90,15 +90,15 @@ The following are the commands to create the ``mycomponents`` development enviro
     (env)[userone@hostone insights-core-tutorials]$ mkdir ./mycomponents
     (env)[userone@hostone insights-core-tutorials]$ cd ./mycomponents
     (env)[userone@hostone mycomponents]$ touch __init__.py
-    (env)[userone@hostone mycomponents]$ mkdir -p ./parsers/tests
+    (env)[userone@hostone mycomponents]$ mkdir -p ./tests/parsers
     (env)[userone@hostone mycomponents]$ touch ./parsers/__init__.py
-    (env)[userone@hostone mycomponents]$ touch ./parsers/tests/__init__.py
-    (env)[userone@hostone mycomponents]$ mkdir -p ./combiners/tests
+    (env)[userone@hostone mycomponents]$ touch ./tests/parsers/__init__.py
+    (env)[userone@hostone mycomponents]$ mkdir -p ./tests/combiners
     (env)[userone@hostone mycomponents]$ touch ./combiners/__init__.py
-    (env)[userone@hostone mycomponents]$ touch ./combiners/tests/__init__.py
-    (env)[userone@hostone mycomponents]$ mkdir -p ./rules/tests
+    (env)[userone@hostone mycomponents]$ touch ./tests/combiners/__init__.py
+    (env)[userone@hostone mycomponents]$ mkdir -p ./tests/rules
     (env)[userone@hostone mycomponents]$ touch ./rules/__init__.py
-    (env)[userone@hostone mycomponents]$ touch ./rules/tests/__init__.py
+    (env)[userone@hostone mycomponents]$ touch ./tests/rules/__init__.py
     (env)[userone@hostone mycomponents]$ export PYTHONPATH=$PWD:$PYTHONPATH
 
 
@@ -119,14 +119,13 @@ Your results should look something like this::
    platform linux -- Python 3.6.6, pytest-4.0.1, py-1.7.0, pluggy-0.8.0
    rootdir: /home/userone/work/insights-core-tutorials, inifile: setup.cfg
    plugins: cov-2.6.1
-   collected 10 items
+   collected 11 items
 
-   insights_examples/combiners/tests/test_hostname_uh.py .
-   insights_examples/parsers/tests/test_secure_shell.py ...
-   insights_examples/rules/tests/integration.py ...
-   insights_examples/rules/tests/test_sshd_secure.py .
+   insights_examples/tests/integration.py .......
+   insights_examples/tests/combiners/test_hostname_uh.py .
+   insights_examples/tests/parsers/test_secure_shell.py ...
 
-   =================== 10 passed in 0.30 seconds ========================
+   =================== 11 passed in 0.30 seconds ========================
 
 
 .. _setup_complete:

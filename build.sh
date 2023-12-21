@@ -8,4 +8,3 @@ pytest
 
 flake8;
 sphinx-build -W -b html -qa -E docs docs/_build/html;
-

@@ -19,5 +19,3 @@ the following...
 
    (env)[userone@hostone ~]$ cd ~/work/insights-core-tutorials
    (env)[userone@hostone insights-core-tutorials]$ pytest -k mycomponents
-
-

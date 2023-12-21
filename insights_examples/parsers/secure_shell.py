@@ -7,42 +7,13 @@ file.  The ``SSHDConfig`` class implements the parsing and
 provides a ``list`` of all configuration lines present in
 the file.
 
-Sample content from the ``/etc/sshd/sshd_config`` file is::
-
-    #   $OpenBSD: sshd_config,v 1.93 2014/01/10 05:59:19 djm Exp $
-
-    Port 22
-    #AddressFamily any
-    ListenAddress 10.110.0.1
-    Port 22
-    ListenAddress 10.110.1.1
-    #ListenAddress ::
-
-    # The default requires explicit activation of protocol 1
-    #Protocol 2
-    Protocol 1
-
-Examples:
-    >>> 'Port' in sshd_config
-    True
-    >>> 'PORT' in sshd_config  # items are stored case-insentive
-    True
-    >>> 'AddressFamily' in sshd_config  # comments are ignored
-    False
-    >>> sshd_config['port']  # All value stored by keyword in lists
-    ['22', '22']
-    >>> sshd_config['Protocol']  # Single items have one list element
-    ['1']
-    >>> [line for line in sshd_config if line.keyword == 'Port']  # can be used as an iterator
-    [KeyValue(keyword='Port', value='22', kw_lower='port'), KeyValue(keyword='Port', value='22', kw_lower='port')]
-    >>> sshd_config.last('ListenAddress')  # Easy way of finding the current configuration for a single item
-    '10.110.1.1'
 """
+import os
+
 from collections import namedtuple
 from insights import Parser, parser, get_active_lines
 from insights.core.spec_factory import SpecSet, simple_file
 from insights.specs import Specs
-import os
 
 
 class LocalSpecs(SpecSet):
@@ -56,11 +27,42 @@ class LocalSpecs(SpecSet):
 class SSHDConfig(Parser):
     """Parsing for ``sshd_config`` file.
 
+    Sample content from the ``/etc/sshd/sshd_config`` file is::
+
+        #   $OpenBSD: sshd_config,v 1.93 2014/01/10 05:59:19 djm Exp $
+
+        Port 22
+        #AddressFamily any
+        ListenAddress 10.110.0.1
+        Port 22
+        ListenAddress 10.110.1.1
+        #ListenAddress ::
+
+        # The default requires explicit activation of protocol 1
+        #Protocol 2
+        Protocol 1
+
     Attributes:
         lines (list): List of `KeyValue` namedtupules for each line in
             the configuration file.
         keywords (set): Set of keywords present in the configuration
             file, each keyword has been converted to lowercase.
+
+    Examples:
+        >>> 'Port' in sshd_config
+        True
+        >>> 'PORT' in sshd_config  # items are stored case-insentive
+        True
+        >>> 'AddressFamily' in sshd_config  # comments are ignored
+        False
+        >>> sshd_config['port']  # All value stored by keyword in lists
+        ['22', '22']
+        >>> sshd_config['Protocol']  # Single items have one list element
+        ['1']
+        >>> [line for line in sshd_config if line.keyword == 'Port']  # can be used as an iterator
+        [KeyValue(keyword='Port', value='22', kw_lower='port'), KeyValue(keyword='Port', value='22', kw_lower='port')]
+        >>> sshd_config.last('ListenAddress')  # Easy way of finding the current configuration for a single item
+        '10.110.1.1'
     """
 
     KeyValue = namedtuple('KeyValue', ['keyword', 'value', 'kw_lower'])

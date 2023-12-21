@@ -1,7 +1,7 @@
-from .. import is_fedora
 from insights.specs import Specs
 from insights.tests import InputData, archive_provider
 from insights.core.plugins import make_pass, make_fail
+from insights_examples.rules import is_fedora
 
 FEDORA = "Fedora release 28 (Twenty Eight)"
 RHEL = "Red Hat Enterprise Linux Server release 7.4 (Maipo)"

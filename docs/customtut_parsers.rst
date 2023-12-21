@@ -87,7 +87,7 @@ and store the input data in our class.  The base class ``Parser`` implements a
 constructor that will invoke our ``parse_content`` method when the class
 is created.
 
-Next we'll create the parser test file ``~/work/insights-core-tutorials/mycomponents/parsers/tests/test_secure_shell.py``
+Next we'll create the parser test file ``~/work/insights-core-tutorials/mycomponents/tests/parsers/test_secure_shell.py``
 as a skeleton that will aid in the parser development process:
 
 .. code-block:: python
@@ -111,7 +111,7 @@ to make sure everything is setup correctly::
     plugins: cov-2.4.0
     collected 3 items
 
-    mycomponents/parsers/tests/test_secure_shell.py ...
+    mycomponents/tests/parsers/test_secure_shell.py ...
 
     ===================== 3 passed in 1.26 seconds ===========================
 
@@ -715,7 +715,7 @@ Once your tests all run successfully your parser is complete.
 .. Links:
 
 .. _Red Hat Customer Portal: https://access.redhat.com
-.. _Red Hat Insights Portal: https://access.redhat.com/products/red-hat-insights.
+.. _Red Hat Insights Portal: https://access.redhat.com/products/red-hat-insights
 .. _insights-core Repository: https://github.com/RedHatInsights/insights-core
 .. _Mozilla OpenSSH Security Guidelines: https://wiki.mozilla.org/Security/Guidelines/OpenSSH
 .. _Documentation Guidelines:  https://insights-core.readthedocs.io/en/latest/docs_guidelines.html

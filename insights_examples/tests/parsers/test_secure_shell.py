@@ -1,7 +1,8 @@
-from insights_examples.parsers.secure_shell import SSHDConfig
-from insights_examples.parsers import secure_shell
-from insights.tests import context_wrap
 import doctest
+
+from insights.tests import context_wrap
+from insights_examples.parsers import secure_shell
+from insights_examples.parsers.secure_shell import SSHDConfig
 
 SSHD_CONFIG_INPUT = """
 #    $OpenBSD: sshd_config,v 1.93 2014/01/10 05:59:19 djm Exp $
